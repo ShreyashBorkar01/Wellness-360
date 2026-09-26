@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calorie Calculator • FitTrack360</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Calorie Calculator</h1>
+  </header>
+
+  <main>
+    <form id="calorieForm">
+      <input type="number" id="age" placeholder="Age" required>
+      <input type="number" id="weight" placeholder="Weight (kg)" required>
+      <input type="number" id="height" placeholder="Height (cm)" required>
+      <select id="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+      <select id="activity" required>
+        <option value="1.2">Sedentary</option>
+        <option value="1.375">Lightly Active</option>
+        <option value="1.55">Moderately Active</option>
+        <option value="1.725">Very Active</option>
+      </select>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="result"></div>
+  </main>
+
+  <script src="js/calorie.js"></script>
+</body>
+</html>

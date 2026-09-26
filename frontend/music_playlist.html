@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Music Playlist — Wellness 360</title>
+  <link rel="stylesheet" href="music.css">
+</head>
+<body>
+  <header>
+    <h1 id="categoryTitle">🎵 Playlist</h1>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search your favorite music...">
+      <button onclick="searchMusic()">🔍</button>
+    </div>
+  </header>
+
+  <main id="musicList" class="music-list"></main>
+
+  <!-- Hidden YouTube Player (audio only) -->
+  <div id="playerContainer" class="player-container">
+    <div id="player" style="display:none;"></div>
+
+    <div id="playerControls" class="controls-bar" style="display:none;">
+      <div class="track-info">
+        <p id="currentTrack">Select a song to play 🎵</p>
+        <span id="timeDisplay">00:00 / 00:00</span>
+      </div>
+
+      <input type="range" id="progressBar" value="0" min="0" max="100">
+
+      <div class="controls">
+        <button onclick="prevTrack()">⏮</button>
+        <button id="playPauseBtn" onclick="togglePlay()">▶️</button>
+        <button onclick="nextTrack()">⏭</button>
+        <label for="volume">🔊</label>
+        <input type="range" id="volume" min="0" max="100" value="80" onchange="setVolume(this.value)">
+      </div>
+    </div>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="music.js"></script>
+</body>
+</html>

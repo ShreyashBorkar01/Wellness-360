@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>7-Day Balanced Diet Planner</title>
+  <style>
+    :root {
+      --bg: #b1b7bf;
+      --card: #ffffff;
+      --accent: #2563eb;
+      --green: #4CAF50;
+      --muted: #6b7280;
+      --shadow: rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: #222;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--green), #2e7d32);
+      color: #fff;
+      padding: 18px 12px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: 0.2px;
+    }
+
+    .page { max-width: 1150px; margin: 18px auto; padding: 0 14px; }
+
+    .form-card {
+      max-width: 640px;
+      margin: 12px auto;
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px var(--shadow);
+    }
+
+    .form-card h2 { margin: 0 0 10px 0; color: var(--green); }
+
+    label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
+
+    input[type="number"], select {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #e6e9f2;
+      font-size: 14px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .btn-primary { background: var(--green); color: #fff; }
+    .btn-outline { background: #fff; color: var(--green); border: 1px solid #e6e9f2; }
+
+    .results-card {
+      margin-top: 18px;
+      background: var(--card);
+      padding: 16px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px var(--shadow);
+    }
+
+    .results-card h2 { margin: 0 0 12px 0; color: var(--green); }
+
+    .days-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      align-items: start;
+    }
+
+    .day-card {
+      background: #e7d8dd;
+      border: 1px solid #e8eef8;
+      padding: 12px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    .day-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+    }
+
+    .day-title { color: var(--accent); margin: 0 0 8px 0; font-weight: 700; }
+    .meal { margin: 6px 0; font-size: 13px; }
+    .muted { color: var(--muted); font-size: 12px; }
+
+    .saved-section { margin-top: 18px; }
+    .saved-list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+
+    .saved-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 10px;
+      border-radius: 8px;
+      background: #f9fafb;
+      border: 1px solid #eef2f7;
+    }
+
+    .saved-item small { color: var(--muted); font-size: 12px; }
+
+    .saved-actions button {
+      margin-left: 8px;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid #e6e9f2;
+      background: white;
+      color: var(--green);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    @media (max-width: 760px) {
+      .form-card { padding: 12px; }
+      .day-card { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>7-Day Balanced Diet Planner</h1>
+  </header>
+
+  <div class="page">
+    <section class="form-card" aria-labelledby="formLabel">
+      <h2 id="formLabel">Your details</h2>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+        <div><label for="age">Age</label><input id="age" type="number" min="1" max="120" value="25" /></div>
+        <div><label for="weight">Weight (kg)</label><input id="weight" type="number" min="10" max="300" value="70" /></div>
+        <div><label for="height">Height (cm)</label><input id="height" type="number" min="50" max="250" value="175" /></div>
+        <div><label for="calories">Maintenance (kcal)</label><input id="calories" type="number" min="800" max="5000" value="2200" /></div>
+      </div>
+
+      <div class="controls" style="margin-top:12px;">
+        <button id="generateBtn" class="btn btn-primary">Generate Plan</button>
+        <button id="savePdfBtn" class="btn btn-outline">Save as PDF</button>
+        <button id="clearSavedBtn" class="btn btn-outline">Clear Saved</button>
+      </div>
+    </section>
+
+    <section class="results-card" aria-labelledby="resultsLabel">
+      <h2 id="resultsLabel">7-Day Diet Plan</h2>
+      <div id="daysGrid" class="days-grid"></div>
+
+      <div class="saved-section" aria-labelledby="savedLabel">
+        <h3 id="savedLabel" style="margin:12px 0 0 0;color:var(--green)">Saved Plans</h3>
+        <div id="savedList" class="saved-list"></div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    let MEALS = null; // will be fetched from MongoDB
+
+    // ✅ Fetch meals from backend
+    async function fetchMeals() {
+      try {
+        const res = await fetch("http://localhost:5000/api/get-meals");
+        const data = await res.json();
+        if (data.success && data.meals) {
+          MEALS = data.meals;
+          console.log("✅ Meals loaded from MongoDB:", MEALS);
+        } else {
+          alert("❌ Failed to fetch meal data from MongoDB.");
+        }
+      } catch (err) {
+        console.error("Fetch error:", err);
+        alert("❌ Could not connect to backend server.");
+      }
+    }
+
+    // Utility
+    function proteinTarget(weight, age) {
+      const w = Number(weight) || 0;
+      if (age < 18) return Math.round(w * 1.0);
+      if (age <= 60) return Math.round(w * 1.2);
+      return Math.round(w * 1.4);
+    }
+    function waterMl(weight) { return Math.round((Number(weight) || 0) * 35); }
+
+    function renderDaysGrid(week, user) {
+      const grid = document.getElementById('daysGrid');
+      grid.innerHTML = '';
+
+      week.forEach((_, idx) => {
+        const card = document.createElement('div');
+        card.className = 'day-card';
+
+        const title = document.createElement('h4');
+        title.className = 'day-title';
+        title.textContent = `Day ${idx + 1}`;
+        card.appendChild(title);
+
+        ['breakfast', 'lunch', 'snack', 'dinner'].forEach(mealKey => {
+          const mealBlock = document.createElement('div');
+          mealBlock.className = 'meal';
+          const vegList = MEALS[mealKey].veg;
+          const nonvegList = MEALS[mealKey].nonveg;
+          const vegOpt = vegList[idx % vegList.length];
+          const nonvegOpt = nonvegList[idx % nonvegList.length];
+          mealBlock.innerHTML = `<strong>${mealKey.charAt(0).toUpperCase() + mealKey.slice(1)}</strong><br>
+            <span style="font-weight:600">Veg:</span> ${vegOpt.name} <span class="muted">(${vegOpt.qty} • ${vegOpt.kcal} kcal)</span><br>
+            <span style="font-weight:600">Non-Veg:</span> ${nonvegOpt.name} <span class="muted">(${nonvegOpt.qty} • ${nonvegOpt.kcal} kcal)</span>`;
+          card.appendChild(mealBlock);
+        });
+
+        const extra = document.createElement('div');
+        extra.className = 'meal';
+        extra.innerHTML = `<strong>Fruits:</strong> ${MEALS.fruits[idx % MEALS.fruits.length]} • 
+          <strong>Juice:</strong> ${MEALS.juices[idx % MEALS.juices.length]}<br>
+          <span class="muted">Protein/day: ${user.protein} g • Water: ${user.water} ml • Maintenance: ${user.maintenance} kcal</span>`;
+        card.appendChild(extra);
+
+        grid.appendChild(card);
+      });
+    }
+
+    function buildWeek() { return new Array(7).fill(0).map(() => ({})); }
+
+    document.getElementById('generateBtn').addEventListener('click', () => {
+      if (!MEALS) { alert('Meals data not loaded yet. Try again.'); return; }
+
+      const age = Number(document.getElementById('age').value);
+      const weight = Number(document.getElementById('weight').value);
+      const height = Number(document.getElementById('height').value);
+      const maintenance = Number(document.getElementById('calories').value);
+      if (!age || !weight || !height || !maintenance) {
+        alert('Please fill age, weight, height and maintenance calories.');
+        return;
+      }
+
+      const user = {
+        age, weight, height, maintenance,
+        protein: proteinTarget(weight, age),
+        water: waterMl(weight)
+      };
+
+      renderDaysGrid(buildWeek(), user);
+    });
+
+    // PDF / localStorage handling (same as before)
+    document.getElementById('savePdfBtn').addEventListener('click', () => {
+      const daysGrid = document.getElementById('daysGrid');
+      if (!daysGrid || !daysGrid.innerText.trim()) {
+        alert('Generate a plan first.');
+        return;
+      }
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({ unit: 'pt', format: 'a4' });
+      pdf.setFontSize(13);
+      pdf.text('7-Day Balanced Diet Plan', 40, 30);
+      const txt = daysGrid.innerText;
+      const lines = pdf.splitTextToSize(txt, 520);
+      let y = 50;
+      for (let line of lines) {
+        if (y > 760) { pdf.addPage(); y = 40; }
+        pdf.text(line, 40, y); y += 14;
+      }
+
+      const uri = pdf.output('datauristring');
+      let saved = JSON.parse(localStorage.getItem('diet_saved') || '[]');
+      const key = 'plan_' + Date.now();
+      saved.unshift({ key, data: uri, label: `Plan ${new Date().toLocaleString()}` });
+      saved = saved.slice(0, 30);
+      localStorage.setItem('diet_saved', JSON.stringify(saved));
+      renderSavedList();
+      alert('Plan saved to localStorage as PDF.');
+    });
+
+    document.getElementById('clearSavedBtn').addEventListener('click', () => {
+      if (!confirm('Remove all saved plans from localStorage?')) return;
+      localStorage.removeItem('diet_saved');
+      renderSavedList();
+    });
+
+    function renderSavedList() {
+      const container = document.getElementById('savedList');
+      container.innerHTML = '';
+      const saved = JSON.parse(localStorage.getItem('diet_saved') || '[]');
+      if (!saved.length) {
+        const empty = document.createElement('div');
+        empty.className = 'muted';
+        empty.textContent = 'No saved plans yet. Save a plan to see it here.';
+        container.appendChild(empty);
+        return;
+      }
+
+      saved.forEach((item, idx) => {
+        const row = document.createElement('div');
+        row.className = 'saved-item';
+        const left = document.createElement('div');
+        left.innerHTML = `<div style="font-weight:700">${item.label}</div><small class="muted">${item.key}</small>`;
+        const right = document.createElement('div');
+        right.className = 'saved-actions';
+        const dl = document.createElement('button');
+        dl.textContent = 'Download';
+        dl.onclick = () => {
+          const a = document.createElement('a');
+          a.href = item.data; a.download = `${item.key}.pdf`;
+          document.body.appendChild(a); a.click(); a.remove();
+        };
+        const rm = document.createElement('button');
+        rm.textContent = 'Delete';
+        rm.onclick = () => {
+          if (!confirm('Delete this saved plan?')) return;
+          const all = JSON.parse(localStorage.getItem('diet_saved') || '[]');
+          all.splice(idx, 1);
+          localStorage.setItem('diet_saved', JSON.stringify(all));
+          renderSavedList();
+        };
+        right.appendChild(dl); right.appendChild(rm);
+        row.appendChild(left); row.appendChild(right);
+        container.appendChild(row);
+      });
+    }
+
+    // On page load
+    fetchMeals();
+    renderSavedList();
+  </script>
+</body>
+</html>

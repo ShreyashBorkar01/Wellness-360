@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitTrack360 • Healthy Lifestyle</title>
+  <style>
+   
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #240f47;
+  padding: 10px 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.main-logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right:70px;
+ 
+}
+
+
+.brand-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+
+.brand-text {
+  text-align: center;
+}
+.brand-text h1 {
+  font-size: 28px;
+  color: #faf6f6;
+  margin: 0;
+}
+.brand-text p {
+  font-size: 14px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.team-logos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.team-logo {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.team-logo:hover {
+  transform: scale(1.1);
+  border-color: #4CAF50;
+}
+
+
+.logout-btn {
+  background: #ff4d4d;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.logout-btn:hover {
+  background: #e60000;
+}
+
+   
+    section {
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+
+    section h2 {
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, #38bdf8, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeUp 1.5s ease;
+    }
+
+    .cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  width: 280px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeUp 1.2s ease;
+  position: relative;
+  overflow: hidden;
+
+  /* make button look like card */
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    from 180deg at 50% 50%, 
+    #38bdf8, #818cf8, #f472b6, #38bdf8
+  );
+  opacity: 0.2;
+}
+
+.card h3 {
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: #f8fafc;
+  position: relative;
+  z-index: 1;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #e2e8f0;
+  position: relative;
+  z-index: 1;
+}
+
+.card:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      background: rgba(0, 0, 0, 0.2);
+      margin-top: 3rem;
+    }
+
+    /* Animations */
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #38bdf8; }
+      to { text-shadow: 0 0 20px #f472b6, 0 0 40px #818cf8; }
+    }
+
+    @keyframes fadeDown {
+      from { transform: translateY(-50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header h1 { font-size: 2.2rem; }
+      section h2 { font-size: 1.8rem; }
+      .card { width: 100%; max-width: 320px; }
+    }
+
+
+
+   header {
+  padding: 15px 20px;
+  /* background: #f8fafc;*/
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* centers text block */
+  position: relative;      /* so logo can stick left */
+  padding: 10px 20px;
+}
+
+.logo {
+  width: 80px;
+  height: auto;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+.brand-text {
+  text-align: center;
+}
+
+.logout-btn {
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+  position: absolute;
+  right: 20px; 
+}
+
+.logout-btn:hover {
+  background: #dc2626;
+}
+
+
+  </style>
+</head>
+
+<script>
+  function logout() {
+    // Example: clear local storage/session
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // Redirect to login page
+    window.location.href = "login.html";
+  }
+</script>
+
+
+<body>
+  <!-- Header -->
+  <header>
+  <div class="header">
+    <!-- Left logo -->
+    <img src="w360.png" alt="Wellness 360 Logo" class="main-logo" />
+
+    <!-- Centered text with team images -->
+    <div class="brand-section">
+      <div class="brand-text">
+        <h1>Wellness 360</h1>
+        <p>Encouraging a Healthy Lifestyle for a Better Tomorrow</p>
+      </div>
+
+    
+    </div>
+
+    <!-- Logout Button -->
+    <button class="logout-btn" onclick="logout()">🚪 Logout</button>
+  </div>
+</header>
+
+
+
+
+
+  <!-- Gym Section -->
+  <section>
+    <h2>🏋️ Build Strength with Gym</h2>
+    <div class="cards">
+  <!-- Muscle Growth Card -->
+  <button class="card" onclick="window.location.href='posture.html'">
+  <h3>Posture Coach</h3>
+  <p>Learn the correct form for every exercise.</p>
+</button>
+
+  <!-- Watch Card -->
+  <button class="card" onclick="window.location.href='watch.html'">
+    <h3>Watch</h3>
+    <p>Sync data with your fitness app seamlessly.</p>
+  </button>
+
+<!-- all exercise demo Card -->
+  <button class="card" onclick="window.location.href='exerciseee.html'">
+    <h3>Demo Videos</h3>
+    <p>Watch, learn, and improve your workout routine.</p>
+  </button>
+</div>
+
+  </section>
+<!-- exercise.html-->
+
+
+  <!-- Diet Section -->
+  <section>
+    <h2>🍎 Eat Smart with Good Diet</h2>
+     <div class="cards">
+  <!-- Balanced Nutrition Card -->
+  <button class="card" onclick="window.location.href='balance.html'">
+  <h3>Balanced Nutrition</h3>
+  <p>A well-balanced diet fuels your body with essential vitamins and minerals.</p>
+</button>
+
+  <!-- Weight Management -->
+  <button class="card" onclick="window.location.href='weight.html'">
+    <h3>Weight Management</h3>
+    <p>Healthy meals help you stay in shape and prevent lifestyle diseases.</p>
+  </button>
+
+   <!-- Age  -->
+  <button class="card" onclick="window.location.href='age.html'">
+    <h3>Balanced Diet Planner</h3>
+    <p>Fuel your body with the right balance of nutrients daily.</p><br><br>
+  </button> 
+
+
+  </section>
+
+  <!-- Lifestyle Section -->
+  <section>
+
+
+
+    <h2>🌿 Live a Healthy Lifestyle</h2>
+
+    <div class="cards">
+
+    <!-- Do's and Dont's -->
+    <button class="card" onclick="window.location.href='doss.html'">
+  <h3>Do's and Dont's</h3>
+  <p>Small changes, big results in health.</p><br>
+</button>
+
+
+<!-- Motivation as MUSIC card -->
+    <button class="card" onclick="window.location.href='music_dashboard.html'">
+  <h3>🎵 Motivation as MUSIC</h3>
+  <p>Train your body, tune your mind — let the music fuel your grind.</p><br>
+</button>
+
+  <!-- all exercise demo Card -->
+  <button class="card" onclick="window.location.href='food.html'">
+    <h3>Food To Eat</h3>
+    <p>Eat with knowledge, live with energy.</p>
+  </button>
+
+<!-- ChatBot Card -->
+  <button class="card" onclick="window.location.href='chatbot.html'">
+    <h3>ChatBot</h3>
+    <p>🤖 Your Smart Assistant.</p>
+    <p>💬 Ask Me Anything</p>
+  </button>
+    </div>
+     
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Wellness 360 • Empowering Health & Fitness
+  </footer>
+</body>
+</html>

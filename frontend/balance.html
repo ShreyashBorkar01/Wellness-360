@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weight Management</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #26282b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container-wrapper {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap; /* allows wrapping on smaller screens */
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .box {
+      flex: 1 1 400px; /* min width 400px, grows/shrinks */
+      max-width: 500px;
+      height: 525px;
+      background: rgb(219, 211, 211);
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 25px 30px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    }
+
+    .box h2 {
+      text-align: center;
+      color: #1e293b;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
+    .box ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .box li {
+      margin-bottom: 12px;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .box li b {
+      color: #0f172a;
+    }
+
+    .box button {
+      display: block;
+      width: 100%;
+      padding: 12px 0;
+      margin-top: 20px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 16px;
+    }
+
+    .box button:hover {
+      background: #1e40af;
+    }
+
+    /* Responsive for small screens */
+    @media (max-width: 850px) {
+      .container-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container-wrapper">
+    <div class="box">
+      <h2>Weight Gain</h2>
+      <ul>
+        <li><b>Definition:</b> Increase in body mass, which can be due to muscle growth, fat accumulation, or water retention.</li>
+        <li><b>Healthy Weight Gain:</b>
+          <ul>
+            <li>Happens when <b>calorie intake &gt; calorie expenditure</b>.</li>
+            <li>Focus on <b>nutrient-dense foods</b> like lean proteins, whole grains, healthy fats, fruits, and vegetables.</li>
+            <li>Strength training supports <b>muscle gain</b> instead of fat gain.</li>
+          </ul>
+        </li>
+        <li><b>Risks of Unhealthy Weight Gain:</b>
+          <ul>
+            <li>Can lead to <b>obesity</b>, insulin resistance, type 2 diabetes, high blood pressure, and heart diseases.</li>
+            <li>Excess fat, especially <b>visceral fat</b>, increases the risk of metabolic syndrome.</li>
+          </ul>
+        </li>
+      </ul><br>
+      <button onclick="window.location.href='weightgain.html'">Learn More</button>
+    </div>
+
+    <div class="box">
+      <h2>Weight Loss</h2>
+      <ul>
+        <li><b>Definition:</b> Reduction in overall body weight, often through fat loss, sometimes muscle and water loss too.</li>
+        <li><b>Healthy Weight Loss:</b>
+          <ul>
+            <li>Achieved when <b>calorie expenditure &gt; calorie intake</b>.</li>
+            <li>Should be <b>gradual and sustainable</b> (0.5–1 kg per week).</li>
+            <li>Balanced diet with adequate protein prevents muscle loss.</li>
+            <li>Regular exercise (cardio + strength training) improves metabolism and body composition.</li>
+          </ul>
+        </li>
+        <li><b>Risks of Unhealthy Weight Loss:</b>
+          <ul>
+            <li>Rapid or extreme dieting can cause <b>nutrient deficiencies</b>, muscle loss, fatigue, weakened immunity, and hormonal imbalance.</li>
+            <li>Eating disorders like anorexia and bulimia are dangerous outcomes of unhealthy weight loss.</li>
+          </ul>
+        </li>
+      </ul>
+      <button onclick="window.location.href='weightloss.html'">Learn More</button>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time Squat Counter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .video-container canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #videoElement { display: none; }
+  </style>
+
+  <!-- MediaPipe Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose/pose.js"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen flex flex-col items-center p-4">
+
+  <h1 class="text-3xl font-extrabold text-gray-800 my-6">AI Squat Coach</h1>
+  <p class="text-gray-600 mb-6 text-center max-w-lg">
+    Bend your knees to about <strong>70–90°</strong> for a perfect squat. Fully stand up (>160°) before the next rep.
+  </p>
+
+  <div class="w-full lg:flex lg:space-x-8 max-w-4xl">
+    <div class="video-container flex-1 bg-gray-800 mb-8 lg:mb-0">
+      <video id="videoElement" playsinline></video>
+      <canvas id="output_canvas" class="w-full h-full"></canvas>
+      <div id="loading" class="absolute inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center text-white text-lg transition-opacity duration-500">
+        Loading AI Model and Camera...
+      </div>
+    </div>
+
+    <!-- Right Side Panel -->
+    <div class="w-full lg:w-64 space-y-4">
+      <div class="bg-indigo-600 text-white p-4 rounded-xl shadow-lg">
+        <p class="text-sm font-semibold opacity-80">TOTAL REPS</p>
+        <p id="counterDisplay" class="text-5xl font-bold mt-1">0</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-200">
+        <p class="text-sm font-semibold text-gray-500">CURRENT STAGE</p>
+        <p id="stageDisplay" class="text-3xl font-bold text-indigo-700 mt-1 uppercase">Ready</p>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-200">
+        <p class="text-sm font-semibold text-gray-500">RIGHT KNEE ANGLE</p>
+        <p id="angleDisplay" class="text-3xl font-bold text-gray-900 mt-1">--°</p>
+      </div>
+
+      <button id="reportButton" class="w-full py-3 bg-teal-500 hover:bg-teal-600 transition duration-200 text-white font-bold rounded-xl shadow-md disabled:bg-gray-400" disabled>
+        End Session & Generate Report
+      </button>
+      <p class="text-xs text-gray-500 text-center">Use your <strong>right leg</strong> for tracking.</p>
+    </div>
+  </div>
+
+  <!-- Report Modal -->
+  <div id="reportModal" class="fixed inset-0 bg-gray-900 bg-opacity-75 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-xl p-8 max-w-lg w-full shadow-2xl transform transition-all duration-300 scale-95 opacity-0" id="reportContentContainer">
+      <h2 class="text-2xl font-bold mb-4 text-indigo-700">Squat Performance Report</h2>
+      <pre id="reportText" class="bg-gray-50 p-4 rounded-lg text-sm text-gray-700 overflow-auto border"></pre>
+      <div class="mt-6 flex justify-end">
+        <button onclick="closeReport()" class="px-6 py-2 bg-indigo-500 text-white font-semibold rounded-lg hover:bg-indigo-600 transition">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let counter = 0;
+    let stage = 'Ready';
+    let repAccuracies = [];
+
+    const videoElement = document.getElementById('videoElement');
+    const canvasElement = document.getElementById('output_canvas');
+    const canvasCtx = canvasElement.getContext('2d');
+    const loadingScreen = document.getElementById('loading');
+    const reportButton = document.getElementById('reportButton');
+    const reportModal = document.getElementById('reportModal');
+    const reportContentContainer = document.getElementById('reportContentContainer');
+
+    function updateUI(angle, stageVal, counterVal) {
+      document.getElementById('angleDisplay').innerText = `${Math.round(angle)}°`;
+      document.getElementById('stageDisplay').innerText = stageVal;
+      document.getElementById('counterDisplay').innerText = counterVal;
+
+      const stageEl = document.getElementById('stageDisplay');
+      stageEl.classList.remove('text-red-600', 'text-green-600', 'text-indigo-700');
+      if (stageVal === 'down') stageEl.classList.add('text-red-600');
+      else if (stageVal === 'up') stageEl.classList.add('text-green-600');
+      else stageEl.classList.add('text-indigo-700');
+    }
+
+    function calculateAngle(a, b, c) {
+      const radians = Math.atan2(c.y - b.y, c.x - b.x) - Math.atan2(a.y - b.y, a.x - b.x);
+      let angle = Math.abs(radians * 180.0 / Math.PI);
+      if (angle > 180.0) angle = 360 - angle;
+      return angle;
+    }
+
+    function getAccuracy(angle) {
+      if (angle >= 150) return 0;
+      else if (90 <= angle && angle < 150) return (150 - angle) * (100 / 60);
+      else if (70 <= angle && angle < 90) return 100;
+      else return Math.max(0, 100 - (70 - angle) * 2);
+    }
+
+    function generateReport() {
+      if (repAccuracies.length === 0) {
+        document.getElementById('reportText').innerText = "No squats were completed during this session.";
+        return;
+      }
+      const totalReps = repAccuracies.length;
+      const avgAcc = repAccuracies.reduce((a, b) => a + b, 0) / totalReps;
+      const now = new Date().toLocaleString();
+
+      const reportContent = `
+===========================
+SQUAT PERFORMANCE REPORT
+===========================
+Date: ${now}
+Total Squats: ${totalReps}
+Average Accuracy: ${avgAcc.toFixed(2)}%
+
+Individual Rep Accuracy:
+${repAccuracies.map((a, i) => `Rep ${i + 1}: ${a.toFixed(1)}%`).join(', ')}
+
+Ideal squat range: Knee angle 70°–90° for perfect depth.
+Keep practicing to improve control and posture!
+`;
+      document.getElementById('reportText').innerText = reportContent;
+      reportModal.classList.remove('hidden');
+      reportModal.classList.add('flex');
+      setTimeout(() => reportContentContainer.classList.add('scale-100', 'opacity-100'), 50);
+    }
+
+    function closeReport() {
+      reportModal.classList.add('hidden');
+      reportContentContainer.classList.remove('scale-100', 'opacity-100');
+    }
+
+    function onResults(results) {
+      if (loadingScreen.style.opacity !== '0') {
+        loadingScreen.style.opacity = '0';
+        setTimeout(() => (loadingScreen.style.display = 'none'), 500);
+        reportButton.disabled = false;
+        reportButton.addEventListener('click', generateReport);
+      }
+
+      canvasCtx.save();
+      canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+      canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+      if (results.poseLandmarks) {
+        const lm = results.poseLandmarks;
+        const hip = lm[24];
+        const knee = lm[26];
+        const ankle = lm[28];
+
+        if (hip.visibility > 0.6 && knee.visibility > 0.6 && ankle.visibility > 0.6) {
+          const angle = calculateAngle(hip, knee, ankle);
+
+          if (angle > 160) stage = 'up';
+          if (angle < 90 && stage === 'up') {
+            stage = 'down';
+            counter++;
+            const acc = getAccuracy(angle);
+            repAccuracies.push(acc);
+            console.log(`Squat ${counter} | Angle: ${angle.toFixed(1)}° | Accuracy: ${acc.toFixed(1)}%`);
+          }
+
+          updateUI(angle, stage, counter);
+
+          drawConnectors(canvasCtx, lm, POSE_CONNECTIONS, { color: '#00FF00', lineWidth: 4 });
+          drawLandmarks(canvasCtx, lm, { color: '#FF0000', lineWidth: 2, radius: 2 });
+
+          const drawX = knee.x * canvasElement.width;
+          const drawY = knee.y * canvasElement.height;
+          canvasCtx.fillStyle = 'white';
+          canvasCtx.font = '20px Inter';
+          canvasCtx.fillText(`${Math.round(angle)}°`, drawX + 10, drawY);
+        } else {
+          stage = 'No Detection';
+          updateUI('--', stage, counter);
+        }
+      } else {
+        stage = 'No Detection';
+        updateUI('--', stage, counter);
+      }
+
+      canvasCtx.restore();
+    }
+
+    const pose = new Pose({
+      locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`,
+    });
+
+    pose.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: true,
+      minDetectionConfidence: 0.6,
+      minTrackingConfidence: 0.6
+    });
+    pose.onResults(onResults);
+
+    const videoWidth = 640, videoHeight = 480;
+    canvasElement.width = videoWidth;
+    canvasElement.height = videoHeight;
+
+    const camera = new Camera(videoElement, {
+      onFrame: async () => await pose.send({ image: videoElement }),
+      width: videoWidth,
+      height: videoHeight
+    });
+    camera.start();
+  </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wellness360 • Login</title>
+  <style>
+    /* Background */
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      width: 900px;
+      max-width: 95%;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Panels */
+    .panel {
+      flex: 1;
+      padding: 2rem;
+    }
+    .panel:nth-child(1) {
+      background: rgba(15, 23, 42, 0.8);
+    }
+    .panel:nth-child(2) {
+      background: rgba(30, 41, 59, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* Brand */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #fff;
+      padding: 2px;
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: #38bdf8;
+    }
+
+    /* Text */
+    .headline {
+      font-size: 1.4rem;
+      margin: 1rem 0;
+    }
+    .subtitle {
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+
+    /* Form */
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .input {
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+    .btn {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      background: #38bdf8;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #0284c7;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      align-items: center;
+    }
+    .link {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    /* Features */
+    .features {
+      margin-top: 2rem;
+    }
+    .feature {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #38bdf8;
+      color: #fff;
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transition: all 0.5s ease-in-out;
+      font-size: 1rem;
+      z-index: 1000;
+    }
+    .popup.show {
+      top: 20px;
+      opacity: 1;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left Panel -->
+    <div class="panel">
+      <div class="brand">
+        <img src="w360.png" alt="Wellness 360 Logo" />
+        <h1>Wellness 360</h1>
+      </div>
+
+      <h2 class="headline">Welcome back, Athlete 💪</h2>
+      <p class="subtitle">Log in to track your workouts, posture, and progress.</p>
+
+      <form id="loginForm" class="form">
+        <input
+          class="input"
+          id="usernameOrEmail"
+          placeholder="Username or Email"
+          autocomplete="username"
+          required
+        />
+        <input
+          class="input"
+          id="password"
+          type="password"
+          placeholder="Password"
+          autocomplete="current-password"
+          required
+        />
+        <button class="btn" type="submit">Log in</button>
+
+        <div class="row">
+          <a class="link" href="forgot.html">Forgot password?</a>
+          <a class="link" href="forgot-username.html">Forgot username?</a>
+        </div>
+
+        <div class="row">
+          <span class="subtitle">No account?</span>
+          <a class="link" href="signup.html">Create one</a>
+        </div>
+      </form>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="panel">
+      <h3 class="headline">Train smarter</h3>
+      <p class="subtitle">
+        Save your sessions, track your workouts, refine your form, and get
+        real-time guidance to keep your posture strong.
+      </p>
+
+      <div class="features">
+        <div class="feature">🏃 Real-time stats</div>
+        <div class="feature">📈 7-day history</div>
+        <div class="feature">🧠 Posture coaching</div>
+        <div class="feature">🔐 Secure by design</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup">Message</div>
+
+  <!-- Login Script -->
+  <script src="login.js"></script>
+</body>
+</html>

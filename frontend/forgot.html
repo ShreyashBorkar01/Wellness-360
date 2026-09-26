@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Auth • Forgot Password</title>
+  <style>
+    /* ===== Background ===== */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(
+        rgba(0,0,0,0.6), 
+        rgba(0,0,0,0.6)
+      ),
+      url("https://images.unsplash.com/photo-1558611848-73f7eb4001a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") 
+      no-repeat center/cover;
+      color: white;
+      overflow: hidden;
+    }
+
+    /* ===== Container ===== */
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px;
+      width: 360px;
+      text-align: center;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+
+      /* animation */
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeSlideIn 1s ease forwards;
+    }
+
+    @keyframes fadeSlideIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 1.6rem;
+      color: #22d3ee;
+    }
+
+    .headline {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #e5e7eb;
+    }
+
+    /* ===== Form ===== */
+    .form {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .input {
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .btn {
+      padding: 12px;
+      background: #22d3ee;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #0ea5e9;
+    }
+
+    .link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #089cdb;
+      text-decoration: none;
+    }
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== Popup ===== */
+    .popup {
+      position: fixed;
+      bottom: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #22c55e;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      font-weight: bold;
+      opacity: 0;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .popup.show {
+      bottom: 40px;
+      opacity: 1;
+      animation: popupSlide 0.8s ease forwards;
+    }
+
+    @keyframes popupSlide {
+      from {
+        bottom: -100px;
+        opacity: 0;
+      }
+      to {
+        bottom: 40px;
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">
+      <h1>Fitness Auth</h1>
+    </div>
+
+    <h2 class="headline">Forgot your password?</h2>
+    <p class="subtitle">
+      Enter your username or email. We'll send a reset link.
+    </p>
+
+    <form id="forgotForm" class="form">
+      <input class="input" id="usernameOrEmail" placeholder="Username or Email" />
+      <button class="btn" type="submit">Send reset link</button>
+    </form>
+
+    <a class="link" href="login.html">Back to login</a>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup"></div>
+
+  <script src="forgot.js"></script>
+</body>
+</html>

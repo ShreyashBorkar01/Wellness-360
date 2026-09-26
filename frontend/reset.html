@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Auth • Reset Password</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="panel">
+      <div class="brand">
+        <div class="logo"></div>
+        <h1>Fitness Auth</h1>
+      </div>
+      <h2 class="headline">Set a new password</h2>
+      <p class="subtitle">Your reset link expires shortly for security.</p>
+      <form id="resetForm" class="form">
+        <input class="input" id="newPassword" type="password" placeholder="New password">
+        <button class="btn" type="submit">Update password</button>
+        <div id="resetMsg" class="success"></div>
+      </form>
+    </div>
+
+    <div class="panel">
+      <h3 class="headline">Good to know</h3>
+      <p class="subtitle">Use a strong password you don't reuse elsewhere.</p>
+    </div>
+  </div>
+
+  <script src="shared.js"></script>
+  <script src="reset.js"></script>
+</body>
+</html>

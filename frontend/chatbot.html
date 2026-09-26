@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Fitness Chatbot</title>
+<style>
+/* Base styles */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f6fa;
+  display: flex;
+  height: 100vh;
+  color: #333;
+}
+
+/* Sidebar */
+#sidebar {
+  width: 250px;
+  background: #2d6cdf;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+#sidebar h2 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+.sidebar-button {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: left;
+  transition: background 0.3s;
+}
+.sidebar-button:hover { background: rgba(255,255,255,0.2); }
+#search-input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+}
+
+/* Chat area */
+#chat-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  background: linear-gradient(90deg, #2d6cdf, #1a4fa8);
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Chat container */
+#chat-container {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #fefefe;
+  margin: 10px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Chat bubbles */
+.message {
+  max-width: 75%;
+  padding: 14px 18px;
+  border-radius: 20px;
+  line-height: 1.6;
+  font-size: 1rem;
+  word-wrap: break-word;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeSlide 0.3s forwards;
+}
+
+.user {
+  align-self: flex-end;
+  background: #2d6cdf;
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+
+.bot {
+  align-self: flex-start;
+  background: #f4f5f9;
+  color: #111;
+  border-left: 4px solid #2d6cdf;
+  border-bottom-left-radius: 4px;
+  padding: 16px;
+}
+
+/* Animations */
+@keyframes fadeSlide {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Typing animation */
+.typing {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  background: #999;
+  border-radius: 50%;
+  animation: blink 1.4s infinite both;
+}
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%, 80%, 100% { opacity: 0; } 40% { opacity: 1; } }
+
+/* Input area */
+#input-area {
+  display: flex;
+  padding: 15px 20px;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+}
+#user-input {
+  flex: 1;
+  padding: 12px 18px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+#user-input:focus {
+  border-color: #2d6cdf;
+  box-shadow: 0 0 10px rgba(45,108,223,0.3);
+}
+button {
+  margin-left: 12px;
+  padding: 12px 25px;
+  background: linear-gradient(90deg, #2d6cdf, #1a4fa8);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background 0.3s, transform 0.2s;
+}
+button:hover { background: linear-gradient(90deg, #1a4fa8, #174083); transform: scale(1.05); }
+
+/* Rich text styles */
+.bot p { margin: 6px 0; }
+.bot strong { color: #2d6cdf; }
+.bot em { color: #ff5e57; font-style: italic; }
+.bot ul { padding-left: 20px; margin: 6px 0; }
+.bot ul li { list-style-type: disc; margin: 4px 0; }
+.bot ol { padding-left: 20px; margin: 6px 0; }
+.bot ol li { margin: 4px 0; }
+.bot code { background: #e0e0e0; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  #sidebar { width: 200px; }
+  .message { max-width: 85%; font-size: 0.95rem; }
+  header { font-size: 1.4rem; padding: 15px; }
+}
+</style>
+</head>
+<body>
+
+<div id="sidebar">
+  <h2>Chat Menu</h2>
+  <input type="text" id="search-input" placeholder="Search chat..." oninput="searchHistory()">
+  <button class="sidebar-button" onclick="newChat()">+ New Chat</button>
+  <div id="history"></div>
+</div>
+
+<div id="chat-wrapper">
+  <header>Your Fitness Chatbot 💪</header>
+  <div id="chat-container"></div>
+  <div id="input-area">
+    <input type="text" id="user-input" placeholder="Ask me anything about fitness..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+const chatContainer = document.getElementById("chat-container");
+const historyContainer = document.getElementById("history");
+const searchInput = document.getElementById("search-input");
+
+let chatHistory = [];
+
+// Format bot response
+function formatBotResponse(text) {
+  let formatted = text
+    .replace(/^# (.*)$/gm, '<strong>$1</strong>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/^- (.*)$/gm, '<li>$1</li>');
+
+  const lines = formatted.split(/\n+/).map(line => {
+    if (!line.includes('<li>')) return `<p>${line}</p>`;
+    else return line;
+  }).join('');
+
+  if (formatted.includes('<li>')) {
+    return lines.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+  }
+  return lines;
+}
+
+// Append message
+function appendMessage(sender, text) {
+  const msg = document.createElement("div");
+  msg.classList.add("message", sender);
+  if (sender === "bot") msg.innerHTML = formatBotResponse(text);
+  else msg.textContent = text;
+
+  chatContainer.appendChild(msg);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  // Save to history
+  chatHistory.push({ sender, text });
+  renderHistory();
+  return msg;
+}
+
+// Render sidebar history
+function renderHistory() {
+  historyContainer.innerHTML = '';
+  chatHistory.forEach((chat, index) => {
+    if (chat.sender === 'user') {
+      const btn = document.createElement('button');
+      btn.classList.add('sidebar-button');
+      btn.textContent = chat.text.length > 30 ? chat.text.substring(0, 30)+'...' : chat.text;
+      btn.onclick = () => loadChat(index);
+      historyContainer.appendChild(btn);
+    }
+  });
+}
+
+// Load a chat from history
+function loadChat(index) {
+  chatContainer.innerHTML = '';
+  for (let i = 0; i <= index; i++) {
+    appendMessage(chatHistory[i].sender, chatHistory[i].text);
+  }
+}
+
+// Search chat history
+function searchHistory() {
+  const keyword = searchInput.value.toLowerCase();
+  const filtered = chatHistory.filter(c => c.text.toLowerCase().includes(keyword));
+  historyContainer.innerHTML = '';
+  filtered.forEach((chat, index) => {
+    if (chat.sender === 'user') {
+      const btn = document.createElement('button');
+      btn.classList.add('sidebar-button');
+      btn.textContent = chat.text.length > 30 ? chat.text.substring(0, 30)+'...' : chat.text;
+      btn.onclick = () => loadChat(index);
+      historyContainer.appendChild(btn);
+    }
+  });
+}
+
+// New chat
+function newChat() {
+  chatContainer.innerHTML = '';
+  chatHistory = [];
+  renderHistory();
+}
+
+// Typing animation
+function appendTypingMessage() {
+  const msg = document.createElement("div");
+  msg.classList.add("message", "bot");
+  msg.innerHTML = `<div class="typing">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+    </div>`;
+  chatContainer.appendChild(msg);
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+  return msg;
+}
+
+// Send message
+async function sendMessage() {
+  const inputField = document.getElementById("user-input");
+  const userText = inputField.value.trim();
+  if (!userText) return;
+
+  appendMessage("user", userText);
+  inputField.value = "";
+  const typingMessage = appendTypingMessage();
+
+  try {
+    const response = await fetch("http://localhost:5000/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: userText })
+    });
+    const data = await response.json();
+    chatContainer.removeChild(typingMessage);
+    appendMessage("bot", data.reply || "⚠️ Error: No reply from server.");
+  } catch (err) {
+    chatContainer.removeChild(typingMessage);
+    appendMessage("bot", "⚠️ Error: Could not connect to chatbot.");
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+/* =============================
+   GLOBAL STYLES
+============================= */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #1a1a1d, #242429);
+  color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+header {
+  text-align: center;
+  padding: 25px 10px;
+  background: linear-gradient(90deg, #80bfff, #6a9ed9);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+header h1 {
+  font-size: 2rem;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+header p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* =============================
+   SEARCH BAR
+============================= */
+.search-box {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.search-box input {
+  width: 60%;
+  max-width: 400px;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+  font-size: 1rem;
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+.search-box input::placeholder {
+  color: rgba(255,255,255,0.6);
+}
+
+.search-box button {
+  background: #ffcc00;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: #333;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.search-box button:hover {
+  background: #ffd84f;
+  transform: scale(1.05);
+}
+
+/* =============================
+   MUSIC LIST
+============================= */
+.music-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  margin-bottom: 120px; /* space for player bar */
+}
+
+.music-item {
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.music-item:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-5px);
+}
+
+.music-item img {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+  height: 150px;
+}
+
+.music-item h3 {
+  font-size: 1rem;
+  text-align: center;
+  margin: 10px 0 4px;
+  color: #fff;
+}
+
+.music-item p {
+  font-size: 0.9rem;
+  color: #bbb;
+  text-align: center;
+}
+
+/* =============================
+   PLAYER CONTROLS BAR
+============================= */
+.controls-bar {
+  background: rgba(20, 20, 20, 0.95);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 12px 20px;
+  box-shadow: 0 -2px 15px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.track-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  color: #ffcc00;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+#currentTrack {
+  max-width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#timeDisplay {
+  color: #fff;
+  font-size: 13px;
+}
+
+#progressBar {
+  width: 90%;
+  margin: 8px 0;
+  accent-color: #ff4b2b;
+  cursor: pointer;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.controls button {
+  background: #ff4b2b;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.controls button:hover {
+  background: #ff416c;
+  transform: scale(1.1);
+}
+
+#volume {
+  width: 100px;
+  accent-color: #ffcc00;
+  cursor: pointer;
+}
+
+label[for="volume"] {
+  color: #ffcc00;
+}
+
+/* =============================
+   RESPONSIVE DESIGN
+============================= */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .search-box input {
+    width: 70%;
+  }
+
+  .controls button {
+    font-size: 16px;
+    padding: 8px 12px;
+  }
+
+  #volume {
+    width: 80px;
+  }
+}

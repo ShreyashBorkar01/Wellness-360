@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ultimate Do's and Don'ts Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+    body { background: #f4f7f8; color: #333; line-height: 1.6; }
+    header { background: #0f172a; color: #fff; text-align: center; padding: 2rem 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: relative; }
+    header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    header p { font-size: 1.1rem; color: #cbd5e1; }
+    .print-btn { position: absolute; top: 1rem; right: 1rem; background: #10b981; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+    .print-btn:hover { background: #059669; }
+    main { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    section { margin-bottom: 3rem; }
+    section h2 { font-size: 2rem; color: #0f172a; margin-bottom: 1rem; border-bottom: 2px solid #0f172a; display: inline-block; padding-bottom: 0.3rem; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .card { background: #fff; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); padding: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.2); }
+    .card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; color: #1e293b; }
+    .card ul { list-style-type: disc; padding-left: 1.2rem; }
+    .card ul li { margin-bottom: 0.5rem; }
+    .checklist { background: #e0f2fe; padding: 1.5rem; border-radius: 12px; margin-top: 2rem; }
+    .checklist h2 { border-bottom: 2px solid #0284c7; color: #0284c7; padding-bottom: 0.3rem; }
+    .checklist ul { list-style-type: square; padding-left: 1.5rem; }
+    .checklist ul li { margin-bottom: 0.5rem; }
+    footer { background: #0f172a; color: #cbd5e1; text-align: center; padding: 1.5rem; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Ultimate Do's and Don'ts Guide</h1>
+  <p>Small changes, big results in health.</p>
+  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+</header>
+
+<main>
+  <!-- Gym & Fitness -->
+  <section>
+    <h2>🏋️ Gym & Fitness</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Do's</h3>
+        <ul>
+          <li>Warm up before exercises</li>
+          <li>Follow proper form to avoid injury</li>
+          <li>Stay hydrated throughout workout</li>
+          <li>Include both strength & cardio exercises</li>
+          <li>Rest properly between sets and workouts</li>
+          <li>Track your progress regularly</li>
+          <li>Wear proper footwear and attire</li>
+          <li>Stretch after workouts to improve flexibility</li>
+          <li>Listen to your body signals</li>
+          <li>Maintain a consistent workout schedule</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Don'ts</h3>
+        <ul>
+          <li>Don't skip warm-up or cool-down</li>
+          <li>Avoid overtraining or lifting too heavy</li>
+          <li>Don't ignore body pain or fatigue</li>
+          <li>Don't compare your progress with others</li>
+          <li>Avoid poor posture during exercises</li>
+          <li>Don't train on an empty stomach</li>
+          <li>Don't neglect rest days</li>
+          <li>Avoid sudden high-intensity exercises</li>
+          <li>Don't ignore hydration needs</li>
+          <li>Don't use improper gym equipment</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Food & Diet -->
+  <section>
+    <h2>🍎 Food & Diet</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Do's</h3>
+        <ul>
+          <li>Eat a balanced diet with proteins, carbs, and fats</li>
+          <li>Include fruits and vegetables daily</li>
+          <li>Drink plenty of water</li>
+          <li>Plan meals and snacks ahead</li>
+          <li>Read food labels to avoid excess sugar & salt</li>
+          <li>Prefer whole grains over refined grains</li>
+          <li>Include healthy fats like nuts and olive oil</li>
+          <li>Eat smaller portions frequently</li>
+          <li>Include fiber-rich foods for digestion</li>
+          <li>Enjoy variety to get all essential nutrients</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Don'ts</h3>
+        <ul>
+          <li>Don't skip meals or rely on junk food</li>
+          <li>Avoid excessive sugar, salt, and fried food</li>
+          <li>Don't eat late at night</li>
+          <li>Don't ignore portion control</li>
+          <li>Avoid fad diets without nutrition knowledge</li>
+          <li>Don't overconsume processed foods</li>
+          <li>Avoid excessive caffeine or energy drinks</li>
+          <li>Don't neglect breakfast</li>
+          <li>Don't eat too fast</li>
+          <li>Avoid skipping vegetables and fruits</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Health & Lifestyle -->
+  <section>
+    <h2>💊 Health & Lifestyle</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Do's</h3>
+        <ul>
+          <li>Get 7-8 hours of sleep daily</li>
+          <li>Practice meditation or stress relief techniques</li>
+          <li>Go for regular health check-ups</li>
+          <li>Maintain a positive mindset</li>
+          <li>Spend time outdoors & stay active</li>
+          <li>Build healthy social connections</li>
+          <li>Limit screen time before bed</li>
+          <li>Take breaks during work/study</li>
+          <li>Practice good posture daily</li>
+          <li>Follow preventive healthcare routines</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Don'ts</h3>
+        <ul>
+          <li>Don't smoke or consume excessive alcohol</li>
+          <li>Avoid prolonged sedentary lifestyle</li>
+          <li>Don't ignore mental health issues</li>
+          <li>Don't overuse gadgets/screens</li>
+          <li>Avoid unhealthy coping mechanisms</li>
+          <li>Don't skip sleep regularly</li>
+          <li>Don't ignore minor health issues</li>
+          <li>Avoid high-stress situations without coping strategies</li>
+          <li>Don't neglect vaccination schedules</li>
+          <li>Avoid excessive dependency on medication</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hygiene -->
+  <section>
+    <h2>🧼 Hygiene & Cleanliness</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Do's</h3>
+        <ul>
+          <li>Wash hands frequently with soap</li>
+          <li>Shower daily and maintain personal cleanliness</li>
+          <li>Keep surroundings clean</li>
+          <li>Brush teeth twice daily</li>
+          <li>Use clean clothes and bedding</li>
+          <li>Trim nails regularly</li>
+          <li>Disinfect surfaces periodically</li>
+          <li>Keep hair clean and groomed</li>
+          <li>Use deodorant and maintain body odor</li>
+          <li>Practice safe food handling</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Don'ts</h3>
+        <ul>
+          <li>Don't share personal items like towels or toothbrush</li>
+          <li>Avoid neglecting oral hygiene</li>
+          <li>Don't ignore skin or hair care</li>
+          <li>Avoid littering or unhygienic practices</li>
+          <li>Don't reuse dirty masks or handkerchiefs</li>
+          <li>Don't neglect washing fruits/vegetables</li>
+          <li>Don't wear dirty or sweaty clothes</li>
+          <li>Avoid leaving trash in living spaces</li>
+          <li>Don't ignore bathroom cleanliness</li>
+          <li>Don't touch face with unwashed hands</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Practice Checklist -->
+  <section class="checklist">
+    <h2>✅ Quick Practice Checklist</h2>
+    <ul>
+      <li>Warm up before exercises & stretch after workouts</li>
+      <li>Stay hydrated & follow proper nutrition</li>
+      <li>Maintain sleep routine & stress management</li>
+      <li>Monitor progress & avoid overtraining</li>
+      <li>Eat fruits, vegetables, and balanced meals daily</li>
+      <li>Practice good hygiene & cleanliness</li>
+      <li>Take breaks & limit screen time</li>
+      <li>Regular health check-ups & preventive care</li>
+      <li>Follow posture & ergonomics guidelines</li>
+      <li>Stay consistent with workouts & healthy habits</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  <p>&copy; 2025 Wellness 360 • Empowering Health & Fitness</p>
+</footer>
+
+</body>
+</html>

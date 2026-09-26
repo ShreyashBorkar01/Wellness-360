@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .video-box {
+      position: relative;
+      cursor: pointer;
+      border-radius: 12px;
+      overflow: hidden;
+       text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .video-box video {
+      width: 100%;
+      height: 580px;
+      object-fit: cover;
+      pointer-events: none; /* disable inline play */
+    }
+
+    
+.video-box:hover {
+  transform: translateY(-12px) scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+    /* Fullscreen overlay */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .overlay video {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 12px;
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 30px;
+      color: white;
+      cursor: pointer;
+    }
+
+
+    
+  </style>
+</head>
+<body>
+  <h1>🎥 Watch, Learn And Improve Your Workout Routine.</h1>
+  <div class="gallery">
+    <!-- First Video -->
+    <div class="video-box" onclick="openVideo('Chest.mp4')">
+      <video src="Chest.mp4"></video>
+      <p> Chest</p>
+    </div>
+    <!-- Second Video -->
+    <div class="video-box" onclick="openVideo('tricep.mp4')">
+      <video src="tricep.mp4"></video>
+      <p> Triceps</p>
+    </div>
+    <!-- Third Video -->
+    <div class="video-box" onclick="openVideo('biceps.mp4')">
+      <video src="biceps.mp4"></video>
+      <p> Biceps</p>
+    </div>
+     <!-- fourth Video -->
+    <div class="video-box" onclick="openVideo('back.mp4')">
+      <video src="back.mp4"></video>
+      <p> Back</p>
+    </div>
+    <!-- fifth Video -->
+    <div class="video-box" onclick="openVideo('shoulder.mp4')">
+      <video src="shoulder.mp4"></video>
+      <p> Shoulder</p>
+    </div>
+     <!-- sixth Video -->
+    <div class="video-box" onclick="openVideo('legs.mp4')">
+      <video src="legs.mp4"></video>
+      <p> Legs</p>
+    </div>
+    <!-- senenth Video -->
+    <div class="video-box" onclick="openVideo('arms.mp4')">
+      <video src="arms.mp4"></video>
+      <p> Arms</p>
+    </div>
+    <!-- eighth Video -->
+    <div class="video-box" onclick="openVideo('fatloss.mp4')">
+      <video src="fatloss.mp4"></video>
+      <p> Fat Loss</p>
+    </div>
+  </div>
+
+  <!-- Fullscreen Overlay -->
+  <div class="overlay" id="overlay">
+    <span class="close-btn" onclick="closeVideo()">&times;</span>
+    <video id="fullscreenVideo" controls></video>
+  </div>
+
+  <script>
+    const overlay = document.getElementById("overlay");
+    const fullscreenVideo = document.getElementById("fullscreenVideo");
+
+    function openVideo(src) {
+      fullscreenVideo.src = src;
+      overlay.classList.add("active");
+      fullscreenVideo.play();
+    }
+
+    function closeVideo() {
+      fullscreenVideo.pause();
+      fullscreenVideo.currentTime = 0;
+      fullscreenVideo.src = ""; // clear to stop audio bug
+      overlay.classList.remove("active");
+    }
+  </script>
+</body>
+</html>

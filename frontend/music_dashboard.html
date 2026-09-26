@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Motivation as MUSIC — Wellness 360</title>
+  <link rel="stylesheet" href="music.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a1d, #242429);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 10px 20px;
+      background: linear-gradient(90deg, #80bfff, #6a9ed9);
+      width: 100%;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      border-bottom-left-radius: 30px;
+      border-bottom-right-radius: 30px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: #f8f8f8;
+      opacity: 0.85;
+      font-size: 1.1rem;
+    }
+
+    /* Grid Layout */
+    .music-category-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+      width: 90%;
+      max-width: 1100px;
+      margin: 50px auto;
+      padding-bottom: 80px;
+    }
+
+    /* Music Card Styling */
+    .music-card {
+      position: relative;
+      height: 220px;
+      border-radius: 20px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+
+    .music-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      filter: brightness(0.8);
+    }
+
+    .music-card:hover img {
+      transform: scale(1.1);
+      filter: brightness(0.6);
+    }
+
+    .music-card .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1));
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 20px;
+      text-align: center;
+      transition: background 0.3s ease;
+    }
+
+    .music-card:hover .overlay {
+      background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2));
+    }
+
+    .music-card h2 {
+      font-size: 1.4rem;
+      margin: 5px 0;
+      color: #fff;
+    }
+
+    .music-card p {
+      font-size: 0.95rem;
+      color: #ccc;
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      padding: 20px 0;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      header p {
+        font-size: 1rem;
+      }
+      .music-card {
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎶 Motivation as MUSIC</h1>
+    <p>Feel the rhythm that matches your mood</p>
+  </header>
+
+  <main class="music-category-container">
+
+    <div class="music-card gym" onclick="openCategory('gym')">
+      <img src="gym.jpg" alt="Gym Music">
+      <div class="overlay">
+        <h2>🏋️ Gym Music</h2>
+        <p>Energetic beats to power up your workouts</p>
+      </div>
+    </div>
+
+    <div class="music-card yoga" onclick="openCategory('yoga')">
+      <img src="yoga.jpg" alt="Yoga Music">
+      <div class="overlay">
+        <h2>🧘 Yoga Music</h2>
+        <p>Peaceful tunes for focus and meditation</p>
+      </div>
+    </div>
+
+    <div class="music-card peace" onclick="openCategory('peace')">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Peace Music">
+      <div class="overlay">
+        <h2>🌿 Peace Music</h2>
+        <p>Calming melodies to soothe your mind</p>
+      </div>
+    </div>
+
+    <div class="music-card relief" onclick="openCategory('relief')">
+      <img src="https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=800&q=80" alt="Mental Relief">
+      <div class="overlay">
+        <h2>💆 Mental Relief</h2>
+        <p>Relaxing sounds for stress and anxiety relief</p>
+      </div>
+    </div>
+
+    <div class="music-card sleep" onclick="openCategory('sleep')">
+      <img src="sleep.jpg" alt="Sleep Music">
+      <div class="overlay">
+        <h2>😴 Sleep Music</h2>
+        <p>Soft tunes to help you drift into deep rest</p>
+      </div>
+    </div>
+
+    <div class="music-card bollywood" onclick="openCategory('bollywood')">
+      <img src="bollywoog.jpg" alt="Bollywood Music">
+      <div class="overlay">
+        <h2>🎬 Bollywood Hits</h2>
+        <p>Top trending Hindi songs for every mood</p>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    © 2025 Wellness 360 • Empowering Health & Fitness
+  </footer>
+
+  <script>
+    function openCategory(category) {
+      window.location.href = `music_playlist.html?category=${category}`;
+    }
+  </script>
+</body>
+</html>

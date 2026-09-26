@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintenance Calorie Calculator</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+      box-sizing: border-box;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      font-size: 26px;
+      font-weight: 600;
+      color: #ffdd57;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      text-align: left;
+      color: #f1f5f9;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .form-row > div {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.3);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+      margin-bottom: 12px;
+    }
+
+    input:focus, select:focus {
+      border-color: #ffdd57;
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.02);
+    }
+
+    select option {
+      background: #1e293b;
+      color: #fff;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #ffdd57, #facc15);
+      color: #1e293b;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #facc15, #f97316);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .result {
+      margin-top: 25px;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #f9fafb;
+      line-height: 1.6;
+      animation: fadeInUp 1s ease-in-out;
+      text-align: left;
+    }
+
+    /* BMI Scale Bar */
+    .bmi-scale {
+      margin-top: 20px;
+      width: 100%;
+      height: 40px;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      color: #fff;
+      font-weight: bold;
+      font-size: 13px;
+      text-align: center;
+      line-height: 40px;
+    }
+
+    .bmi-part { flex: 1; }
+    .under { background: #60a5fa; }   /* Blue */
+    .normal { background: #34d399; }  /* Green */
+    .over { background: #fbbf24; }    /* Yellow */
+    .obese { background: #f87171; }   /* Red */
+
+    .marker {
+      position: relative;
+      top: -40px;
+      height: 0;
+      border-left: 3px solid #fff;
+    }
+
+    .bmi-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      font-size: 13px;
+      color: #f9fafb;
+      font-weight: 500;
+    }
+
+
+
+    /* Info Section */
+    .info-section {
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      color: #f9fafb;
+      margin: 0 auto 40px auto;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .info-section h1 {
+      text-align: center;
+      font-size: 32px;
+      color: #ffdd57;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .info-section h3 {
+      margin-top: 20px;
+      color: #facc15;
+      font-size: 20px;
+    }
+
+    .info-section p {
+      font-size: 15px;
+      line-height: 1.8;
+      margin-top: 8px;
+      color: #e2e8f0;
+    }
+
+    .info-section ul {
+      margin-top: 10px;
+      padding-left: 20px;
+      color: #f8fafc;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    .info-section ul li::marker {
+      color: #ffdd57;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.9);}
+      to {opacity: 1; transform: scale(1);}
+    }
+    @keyframes fadeInUp {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Info Section -->
+  <div class="info-section">
+    <h1>✨ Understanding Maintenance Calories</h1>
+    <p>
+      Calories are the units of energy your body uses to function — from breathing and digesting food, 
+      to walking, exercising, and even sleeping. Every action requires energy, and this energy comes 
+      from the calories you eat and drink daily.
+    </p>
+
+    <h3>🔹 What are Maintenance Calories?</h3>
+    <p>
+      Maintenance calories represent the number of calories you need each day to maintain your current 
+      weight. This value depends on your age, gender, height, weight, and physical activity level.
+      Consuming more than your maintenance calories can lead to weight gain, while consuming less 
+      can cause weight loss.
+    </p>
+
+    <h3>💡 Benefits of Knowing Your Maintenance Calories</h3>
+    <ul>
+      <li>⚖️ Helps maintain a stable and healthy weight.</li>
+      <li>🥗 Guides portion sizes and daily food choices.</li>
+      <li>🏋️ Supports muscle gain or fat loss goals effectively.</li>
+      <li>⏳ Prevents under-eating and low energy levels.</li>
+      <li>❤️ Reduces risks of lifestyle-related diseases.</li>
+      <li>📊 Provides a personalized approach to nutrition.</li>
+      <li>💪 Improves workout performance and recovery.</li>
+      <li>🧠 Enhances focus and mental well-being.</li>
+      <li>🌱 Encourages mindful eating habits.</li>
+      <li>🚀 Boosts long-term health and wellness.</li>
+    </ul>
+  </div>
+
+
+  <div class="container">
+    <h2>🍎 Maintenance Calorie Calculator</h2>
+    
+    <div class="form-row">
+      <div>
+        <label for="age">Age</label>
+        <input type="number" id="age" placeholder="Age" required>
+      </div>
+      <div>
+        <label for="gender">Gender</label>
+        <select id="gender" required>
+          <option value="" disabled selected>Gender</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label for="height">Height (cm)</label>
+        <input type="number" id="height" placeholder="Height" required>
+      </div>
+      <div>
+        <label for="weight">Weight (kg)</label>
+        <input type="number" id="weight" placeholder="Weight" required>
+      </div>
+    </div>
+
+    <label for="activity">Activity Level</label>
+    <select id="activity" required>
+      <option value="" disabled selected>Select Activity Level</option>
+      <option value="1.2">Sedentary (little/no exercise)</option>
+      <option value="1.375">Lightly Active (light exercise 1-3 days/wk)</option>
+      <option value="1.55">Moderately Active (exercise 3-5 days/wk)</option>
+      <option value="1.725">Very Active (hard exercise 6-7 days/wk)</option>
+      <option value="1.9">Athlete (intense daily training)</option>
+    </select>
+
+    <button onclick="calculateCalories()">Calculate</button>
+
+    <div class="result" id="result">Your results will appear here.</div>
+
+    <!-- BMI Scale with Labels -->
+    <div class="bmi-scale" id="bmiScale" style="display:none;">
+      <div class="bmi-part under">Underweight</div>
+      <div class="bmi-part normal">Normal</div>
+      <div class="bmi-part over">Overweight</div>
+      <div class="bmi-part obese">Obese</div>
+    </div>
+    <div class="marker" id="bmiMarker" style="display:none;"></div>
+    <div class="bmi-labels" id="bmiLabels" style="display:none;">
+      <span>0</span>
+      <span>18.5</span>
+      <span>25</span>
+      <span>30</span>
+      <span>40+</span>
+    </div>
+  </div>
+
+  <script>
+    function calculateCalories() {
+      const age = parseInt(document.getElementById("age").value);
+      const gender = document.getElementById("gender").value;
+      const height = parseFloat(document.getElementById("height").value);
+      const weight = parseFloat(document.getElementById("weight").value);
+      const activity = parseFloat(document.getElementById("activity").value);
+      const resultDiv = document.getElementById("result");
+      const bmiScale = document.getElementById("bmiScale");
+      const bmiMarker = document.getElementById("bmiMarker");
+      const bmiLabels = document.getElementById("bmiLabels");
+
+      if (!age || !gender || !height || !weight || !activity) {
+        resultDiv.innerHTML = "⚠️ Please fill in all fields.";
+        bmiScale.style.display = "none";
+        bmiMarker.style.display = "none";
+        bmiLabels.style.display = "none";
+        return;
+      }
+
+      // Mifflin-St Jeor BMR Formula
+      let bmr;
+      if (gender === "male") {
+        bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+      } else {
+        bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+      }
+
+      const maintenanceCalories = Math.round(bmr * activity);
+
+      // BMI Calculation
+      const heightM = height / 100;
+      const bmi = (weight / (heightM * heightM)).toFixed(1);
+
+      let bmiCategory = "";
+      let advice = "";
+
+      if (bmi < 18.5) {
+        bmiCategory = "Underweight";
+        advice = "Consider increasing calorie intake with nutrient-rich foods.";
+      } else if (bmi >= 18.5 && bmi < 24.9) {
+        bmiCategory = "Normal weight";
+        advice = "Great! Maintain your diet and stay active.";
+      } else if (bmi >= 25 && bmi < 29.9) {
+        bmiCategory = "Overweight";
+        advice = "Consider reducing calorie intake slightly and increase activity.";
+      } else {
+        bmiCategory = "Obese";
+        advice = "It’s advised to reduce calories and consult a health professional.";
+      }
+
+      resultDiv.innerHTML = `
+        ✨ Your Results: <br><br>
+        🔥 Maintenance Calories: <strong>${maintenanceCalories} kcal/day</strong><br>
+        📊 BMI: <strong>${bmi} (${bmiCategory})</strong><br><br>
+        💡 Suggestion: ${advice}
+      `;
+
+      // Show BMI scale
+      bmiScale.style.display = "flex";
+      bmiMarker.style.display = "block";
+      bmiLabels.style.display = "flex";
+
+      // Marker positioning
+      const bmiValue = parseFloat(bmi);
+      let markerPercent = 0;
+
+      if (bmiValue < 18.5) {
+        markerPercent = (bmiValue / 18.5) * 25;
+      } else if (bmiValue >= 18.5 && bmiValue < 25) {
+        markerPercent = 25 + ((bmiValue - 18.5) / (25 - 18.5)) * 25;
+      } else if (bmiValue >= 25 && bmiValue < 30) {
+        markerPercent = 50 + ((bmiValue - 25) / (30 - 25)) * 25;
+      } else {
+        markerPercent = 75 + ((bmiValue - 30) / 10) * 25;
+        if (markerPercent > 100) markerPercent = 100;
+      }
+
+      bmiMarker.style.marginLeft = markerPercent + "%";
+    }
+  </script>
+</body>
+</html>

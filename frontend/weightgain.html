@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weight Gain Foods</title>
+  <style>
+     body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #26282b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+.sidebar {
+  width: 190px;
+  background: #6e809f;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: flex-start;
+  margin-right: 45px;
+
+  /* Curved corners */
+  border-radius: 15px;
+}
+
+.sidebar button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s ease-in-out; /* Added transform transition */
+  width: 100%;
+}
+
+.sidebar button:hover {
+  background: #1e40af;
+  transform: scale(1.05); /* Slightly bigger on hover */
+}
+
+
+
+    /* Main Description Area */
+    .description {
+      flex: 1;
+      padding: 40px;
+      color: #1e293b;
+      overflow-y: auto;
+    }
+
+    .description h1 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #0f172a;
+    }
+
+    .description p {
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 15px;
+    }
+
+    .description ul {
+      margin: 10px 0 20px 20px;
+    }
+
+    .description li {
+      margin-bottom: 8px;
+    }
+
+    /* Food Containers */
+    .food-container {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      height: 88%;
+      background: white;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      padding: 30px;
+      overflow-y: auto;
+      transition: right 0.6s ease;
+      z-index: 10;
+      border-radius: 20px;
+      margin-top: 20px;
+      margin-left: 45px;
+
+    }
+
+    .food-container.active {
+      right: 0;
+    }
+
+    .food-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #1e293b;
+    }
+
+    .foods {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 15px;
+    }
+
+    .food-item {
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+      transition: transform 0.3s;
+    }
+
+    .food-item:hover {
+      transform: scale(1.05);
+      background: #e2e8f0;
+    }
+
+    .food-item span {
+      display: block;
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+
+    /* Hide Button */
+    .hide-btn {
+      display: block;
+      margin: 15px auto;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #ef4444;
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .hide-btn:hover {
+      background: #b91c1c;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .wrapper {
+      display: flex;
+      gap: 20px;
+      width: 90%;
+      max-width: 1200px;
+    }
+
+    .greenBox, .redBox {
+      flex: 1;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 25px;
+      height: 650px;
+      justify-content: space-between;
+      background: rgb(200, 182, 182);
+      transition: transform 0.3s ease;
+    }
+
+    .greenBox:hover, .redBox:hover {
+      transform: translateY(-5px);
+    }
+
+    .greenBox {
+      border-top: 6px solid #16a34a;
+    }
+
+    .redBox {
+      border-top: 6px solid #dc2626;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 24px;
+      text-align: center;
+      color: #0f172a;
+    }
+
+    h3 {
+      margin-top: 20px;
+      font-size: 18px;
+      color: #1e293b;
+    }
+
+    ul {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    ul li {
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <button onclick="showFoods('veg')">🍎 Vegetarian Foods</button>
+    <button onclick="showFoods('nonveg')">🍗 Non-Vegetarian Foods</button>
+  </div>
+
+  <!-- Description Area -->
+  <div class="wrapper">
+    <!-- Vegetarian Container -->
+    <div class="greenBox">
+      <h2>Vegetarian Foods</h2>
+
+      <h3>Nutritional Value:</h3>
+      <ul>
+        <li>Rich in vitamins, minerals, antioxidants, and dietary fiber.</li>
+        <li>Good sources of plant proteins (legumes, beans, lentils, nuts, seeds, soy).</li>
+        <li>Contains healthy carbohydrates and phytonutrients.</li>
+      </ul>
+
+      <h3>Health Benefits:</h3>
+      <ul>
+        <li>Helps in weight management and reduces risk of obesity.</li>
+        <li>Lowers cholesterol and supports heart health.</li>
+        <li>Reduces risk of chronic diseases like type 2 diabetes, hypertension, and certain cancers.</li>
+        <li>Improves digestion and gut health due to high fiber content.</li>
+      </ul>
+
+      <h3>Health Concerns:</h3>
+      <ul>
+        <li>May lack some essential nutrients like Vitamin B12, iron, zinc, calcium, and omega-3 fatty acids if not well planned.</li>
+        <li>Protein intake may be lower compared to non-vegetarians if variety is missing.</li>
+      </ul>
+    </div>
+
+    <!-- Non-Vegetarian Container -->
+    <div class="redBox">
+      <h2>Non-Vegetarian Foods</h2>
+
+      <h3>Nutritional Value:</h3>
+      <ul>
+        <li>Rich in complete proteins (containing all essential amino acids).</li>
+        <li>Excellent sources of iron, vitamin B12, zinc, and omega-3 fatty acids.</li>
+        <li>Provides healthy fats, especially from fish and lean meats.</li>
+      </ul>
+
+      <h3>Health Benefits:</h3>
+      <ul>
+        <li>Supports muscle growth, strength, and tissue repair.</li>
+        <li>Improves hemoglobin levels and prevents anemia (due to high bioavailable iron and B12).</li>
+        <li>Omega-3 fatty acids from fish promote brain and heart health.</li>
+      </ul>
+
+      <h3>Health Concerns:</h3>
+      <ul>
+        <li>Excessive red and processed meat intake is linked to heart disease, obesity, and colorectal cancer.</li>
+        <li>High intake of fried or fatty meats can raise cholesterol and blood pressure.</li>
+        <li>Needs moderation and preference for lean meats, poultry, and fish over processed meats.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Vegetarian Container -->
+  <div class="food-container" id="vegContainer">
+    <h2>Vegetarian Foods for Weight Gain</h2>
+    <div class="foods" id="vegFoodsList"></div>
+    <button class="hide-btn" onclick="hideFoods('veg')">❌ Hide</button>
+  </div>
+
+  <!-- Non-Vegetarian Container -->
+  <div class="food-container" id="nonvegContainer">
+    <h2>Non-Vegetarian Foods for Weight Gain</h2>
+    <div class="foods" id="nonvegFoodsList"></div>
+    <button class="hide-btn" onclick="hideFoods('nonveg')">❌ Hide</button>
+  </div>
+
+  <script>
+    const vegFoods = [
+      "🍌 Banana", "🥭 Mango", "🍇 Grapes", "🍎 Apple", "🍊 Orange",
+      "🍓 Strawberry", "🍍 Pineapple", "🥥 Coconut", "🍑 Peach", "🍒 Cherries",
+      "🥑 Avocado", "🥦 Broccoli", "🥕 Carrot", "🌽 Corn", "🍠 Sweet Potato",
+      "🥔 Potato", "🍞 Bread", "🥖 Baguette", "🥯 Bagel", "🥞 Pancakes",
+      "🧇 Waffles", "🍚 Rice", "🍜 Noodles", "🍝 Pasta", "🥗 Salad",
+      "🫘 Beans", "🥜 Peanuts", "🌰 Nuts", "🧀 Cheese", "🥛 Milk",
+      "🍶 Yogurt", "🍫 Chocolate", "🍯 Honey", "🥨 Pretzel", "🍪 Cookies",
+      "🍩 Donut", "🍿 Popcorn", "🥒 Cucumber", "🥬 Spinach", "🍋 Lemon",
+      "🍐 Pear", "🍈 Melon", "🥭 Papaya", "🥜 Almonds", "🌰 Cashews",
+      "🥯 Oats", "🥤 Smoothies"
+    ];
+
+    const nonvegFoods = [
+      "🍗 Chicken Breast", "🍖 Lamb Curry", "🥩 Steak", "🐟 Salmon",
+      "🍤 Prawns", "🦪 Oysters", "🦐 Shrimp Curry", "🦞 Lobster",
+      "🦀 Crab", "🐠 Tuna", "🐡 Mackerel", "🐟 Sardines",
+      "🍳 Egg Omelette", "🥚 Boiled Eggs", "🧈 Butter Chicken",
+      "🍲 Fish Curry", "🥘 Chicken Biryani", "🍛 Mutton Curry",
+      "🥟 Chicken Dumplings", "🌮 Chicken Tacos", "🥪 Chicken Sandwich",
+      "🍔 Beef Burger", "🍕 Meat Pizza", "🌯 Chicken Wrap",
+      "🍜 Ramen with Pork", "🍝 Spaghetti with Meatballs",
+      "🥗 Chicken Salad", "🥪 Egg Salad Sandwich", "🍣 Sushi (Salmon)",
+      "🍣 Sushi (Tuna)", "🍣 Sushi (Shrimp)", "🍜 Laksa (Seafood)",
+      "🦆 Duck Roast", "🦃 Turkey Breast", "🍲 Chicken Soup",
+      "🍲 Mutton Stew", "🍲 Fish Stew", "🥘 Paella with Seafood",
+      "🍤 Tempura Prawns", "🍱 Bento with Fish", "🥟 Pork Dumplings",
+      "🍖 Ribs", "🍛 Chicken Korma", "🍛 Fish Masala","🥘 Butter Fish Curry"
+      
+    ];
+
+    function showFoods(type) {
+      const container = document.getElementById(type + "Container");
+      const foodsList = document.getElementById(type + "FoodsList");
+      const foods = type === "veg" ? vegFoods : nonvegFoods;
+
+      foodsList.innerHTML = "";
+      foods.forEach(food => {
+        const div = document.createElement("div");
+        div.className = "food-item";
+        div.innerHTML = `<span>${food.split(" ")[0]}</span> ${food.split(" ").slice(1).join(" ")}`;
+        foodsList.appendChild(div);
+      });
+
+      container.classList.add("active");
+    }
+
+    function hideFoods(type) {
+      document.getElementById(type + "Container").classList.remove("active");
+    }
+  </script>
+</body>
+</html>

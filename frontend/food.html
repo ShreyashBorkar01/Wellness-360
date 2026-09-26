@@ -1,0 +1,494 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutritional Food Database</title>
+  <style>
+   body {
+  font-family: "Georgia", serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #f4f9f9, #fefefe);
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background: linear-gradient(135deg, #2c3e50, #27ae60);
+  color: #fff;
+  padding: 40px 20px 80px;
+  text-align: center;
+  border-bottom: 5px solid #27ae60;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+header h1 {
+  margin: 0;
+  font-size: 2.8em;
+  letter-spacing: 1px;
+}
+header p {
+  margin: 10px 0 0;
+  font-size: 1.2em;
+  opacity: 0.9;
+}
+
+.container {
+  width: 95%;
+  max-width: 1400px;
+  margin: 20px auto;
+}
+
+h2 {
+  border-left: 6px solid #27ae60;
+  padding-left: 12px;
+  margin-top: 50px;
+  font-size: 1.7em;
+  color: #2c3e50;
+  background: #eafaf1;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+table:hover {
+  transform: scale(1.01);
+}
+table th, table td {
+  padding: 12px 15px;
+  border: 1px solid #c8efd4;
+  text-align: left;
+  font-size: 0.95em;
+}
+table th {
+  background: #27ae60;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+table tr:hover {
+  background: #eafaf1;
+  transition: background 0.3s ease;
+}
+
+footer {
+  background: #2c3e50;
+  color: #fff;
+  text-align: center;
+  padding: 25px;
+  margin-top: 60px;
+  font-size: 0.95em;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
+}
+
+.print-btn {
+  background: #27ae60;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1em;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.print-btn:hover {
+  background: #219150;
+  transform: scale(1.05);
+}
+
+/* Search bar with glassmorphism */
+.search-container {
+  margin-top: 25px;
+  text-align: center;
+}
+.search-box {
+  width: 60%;
+  padding: 14px 18px;
+  font-size: 1em;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+.search-box:focus {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🥗 Nutritional Food Database</h1>
+    <p>Detailed Nutritional Values, Protein, and Prices of Indian Foods</p>
+    <button class="print-btn" onclick="window.print()">🖨️ Print Page</button>
+
+    <!-- Search bar -->
+    <div class="search-container">
+      <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search for foods (e.g. Paneer, Apple, Rajma)...">
+    </div>
+  </header>
+
+  <div class="container">
+  <!-- Category 1 -->
+    <h2>🌱 Plant Proteins</h2>
+    <table>
+      <tr><th>Food</th><th>Protein</th><th>Calories</th><th>Fat</th><th>Carbs</th><th>Price (₹/kg)</th></tr>
+      <tr><td>Soya Bean</td><td>35g</td><td>446</td><td>20g</td><td>30g</td><td>₹120</td></tr>
+      <tr><td>Roasted Chana</td><td>20g</td><td>364</td><td>6g</td><td>60g</td><td>₹80</td></tr>
+      <tr><td>Peanuts</td><td>25g</td><td>567</td><td>49g</td><td>16g</td><td>₹150</td></tr>
+      <tr><td>Green Peas</td><td>5g</td><td>81</td><td>0.4g</td><td>14g</td><td>₹60</td></tr>
+      <tr><td>Rajma</td><td>24g</td><td>333</td><td>0.8g</td><td>60g</td><td>₹110</td></tr>
+      <tr><td>Urad Dal</td><td>25g</td><td>347</td><td>1.6g</td><td>58g</td><td>₹160</td></tr>
+      <tr><td>Masoor Dal</td><td>23g</td><td>353</td><td>1.1g</td><td>60g</td><td>₹140</td></tr>
+      <tr><td>Kabuli Chana</td><td>20g</td><td>364</td><td>6g</td><td>61g</td><td>₹100</td></tr>
+      <tr><td>Toor Dal</td><td>22g</td><td>343</td><td>1.5g</td><td>62g</td><td>₹130</td></tr>
+      <tr><td>Kulthi (Horse Gram)</td><td>22g</td><td>321</td><td>0.5g</td><td>57g</td><td>₹90</td></tr>
+      <tr><td>Matki (Moth Beans)</td><td>23g</td><td>343</td><td>1.6g</td><td>62g</td><td>₹90</td></tr>
+      <tr><td>Chawli (Black-eyed Peas)</td><td>24g</td><td>336</td><td>1.5g</td><td>60g</td><td>₹85</td></tr>
+      <tr><td>Sem (Broad Beans)</td><td>8g</td><td>88</td><td>0.7g</td><td>17g</td><td>₹70</td></tr>
+      <tr><td>Chana Dal</td><td>21g</td><td>364</td><td>6g</td><td>60g</td><td>₹120</td></tr>
+      <tr><td>Val (Field Beans)</td><td>23g</td><td>341</td><td>1.5g</td><td>58g</td><td>₹95</td></tr>
+    </table>
+
+    <!-- Category 2 -->
+    <h2>🥛 Dairy & Soy Products</h2>
+    <table>
+      <tr><th>Food</th><th>Protein</th><th>Calories</th><th>Fat</th><th>Carbs</th><th>Price</th></tr>
+      <tr><td>Paneer</td><td>19g</td><td>265</td><td>20g</td><td>1.2g</td><td>₹300/kg</td></tr>
+      <tr><td>Curd</td><td>11g</td><td>98</td><td>4.3g</td><td>3.4g</td><td>₹60/kg</td></tr>
+      <tr><td>Tofu</td><td>17g</td><td>76</td><td>4.8g</td><td>1.9g</td><td>₹200/kg</td></tr>
+      <tr><td>Milk</td><td>3.4g</td><td>42</td><td>1g</td><td>5g</td><td>₹50/L</td></tr>
+      <tr><td>Cheese</td><td>25g</td><td>402</td><td>33g</td><td>1.3g</td><td>₹400/kg</td></tr>
+      <tr><td>Butter</td><td>0.9g</td><td>717</td><td>81g</td><td>0.1g</td><td>₹500/kg</td></tr>
+      <tr><td>Ghee</td><td>0.5g</td><td>876</td><td>99g</td><td>0g</td><td>₹550/kg</td></tr>
+      <tr><td>Lassi</td><td>3g</td><td>90</td><td>2g</td><td>14g</td><td>₹40/L</td></tr>
+      <tr><td>Kefir</td><td>3.5g</td><td>60</td><td>3g</td><td>7g</td><td>₹150/L</td></tr>
+      <tr><td>Skimmed Milk</td><td>3.6g</td><td>35</td><td>0.1g</td><td>5g</td><td>₹60/L</td></tr>
+      <tr><td>Double Toned Milk</td><td>3.2g</td><td>40</td><td>1.5g</td><td>5g</td><td>₹55/L</td></tr>
+      <tr><td>Yakult</td><td>1g</td><td>50</td><td>0g</td><td>12g</td><td>₹10/bottle</td></tr>
+      <tr><td>Whey Powder</td><td>25g</td><td>120</td><td>2g</td><td>3g</td><td>₹800/kg</td></tr>
+      <tr><td>Greek Yogurt</td><td>10g</td><td>60</td><td>0.4g</td><td>3.6g</td><td>₹100/cup</td></tr>
+      <tr><td>Condensed Milk</td><td>8g</td><td>321</td><td>8g</td><td>55g</td><td>₹120/tin</td></tr>
+    </table>
+
+    <!-- Similarly expand categories 3 to 15 with 15 foods each -->
+         <!-- Category 3 -->
+    <h2>🥚 Eggs & Poultry</h2>
+    <table>
+      <tr><th>Food</th><th>Protein</th><th>Calories</th><th>Fat</th><th>Cholesterol</th><th>Price</th></tr>
+      <tr><td>Hen Egg</td><td>6g</td><td>68</td><td>4.8g</td><td>186mg</td><td>₹6/pc</td></tr>
+      <tr><td>Duck Egg</td><td>9g</td><td>130</td><td>9.5g</td><td>619mg</td><td>₹15/pc</td></tr>
+      <tr><td>Quail Egg</td><td>6g</td><td>158</td><td>11g</td><td>844mg</td><td>₹12/pc</td></tr>
+      <tr><td>Chicken Breast</td><td>27g</td><td>165</td><td>3.6g</td><td>85mg</td><td>₹300/kg</td></tr>
+      <tr><td>Chicken Thigh</td><td>25g</td><td>209</td><td>8.1g</td><td>120mg</td><td>₹280/kg</td></tr>
+      <tr><td>Chicken Liver</td><td>26g</td><td>167</td><td>5g</td><td>564mg</td><td>₹200/kg</td></tr>
+      <tr><td>Chicken Drumsticks</td><td>28g</td><td>185</td><td>7g</td><td>110mg</td><td>₹280/kg</td></tr>
+      <tr><td>Turkey Meat</td><td>29g</td><td>189</td><td>5g</td><td>110mg</td><td>₹450/kg</td></tr>
+      <tr><td>Goose Meat</td><td>25g</td><td>238</td><td>12g</td><td>90mg</td><td>₹500/kg</td></tr>
+      <tr><td>Duck Meat</td><td>24g</td><td>337</td><td>28g</td><td>80mg</td><td>₹400/kg</td></tr>
+      <tr><td>Country Chicken</td><td>27g</td><td>170</td><td>4.5g</td><td>90mg</td><td>₹380/kg</td></tr>
+      <tr><td>Egg White</td><td>11g</td><td>52</td><td>0g</td><td>0mg</td><td>₹12/2 whites</td></tr>
+      <tr><td>Egg Yolk</td><td>3g</td><td>55</td><td>5g</td><td>210mg</td><td>₹12/2 yolks</td></tr>
+      <tr><td>Desi Egg</td><td>7g</td><td>75</td><td>5g</td><td>200mg</td><td>₹10/pc</td></tr>
+      <tr><td>Ostrich Egg</td><td>235g</td><td>2000</td><td>130g</td><td>2000mg</td><td>₹1500/egg</td></tr>
+    </table>
+
+    <!-- Category 4 -->
+    <h2>🥩 Red Meat</h2>
+    <table>
+      <tr><th>Food</th><th>Protein</th><th>Calories</th><th>Fat</th><th>Price</th></tr>
+      <tr><td>Mutton (Goat)</td><td>25g</td><td>250</td><td>20g</td><td>₹650/kg</td></tr>
+      <tr><td>Lamb</td><td>24g</td><td>294</td><td>21g</td><td>₹700/kg</td></tr>
+      <tr><td>Pork</td><td>27g</td><td>297</td><td>20g</td><td>₹400/kg</td></tr>
+      <tr><td>Bison Meat</td><td>28g</td><td>220</td><td>10g</td><td>₹900/kg</td></tr>
+      <tr><td>Boar Meat</td><td>25g</td><td>220</td><td>11g</td><td>₹600/kg</td></tr>
+      <tr><td>Organ Meat (Liver)</td><td>27g</td><td>175</td><td>5g</td><td>₹300/kg</td></tr>
+      <tr><td>Organ Meat (Kidney)</td><td>26g</td><td>160</td><td>3g</td><td>₹280/kg</td></tr>
+      <tr><td>Organ Meat (Heart)</td><td>28g</td><td>170</td><td>6g</td><td>₹300/kg</td></tr>
+      <tr><td>Duck Red Meat</td><td>25g</td><td>250</td><td>18g</td><td>₹480/kg</td></tr>
+      <tr><td>Sheep Meat</td><td>26g</td><td>280</td><td>20g</td><td>₹600/kg</td></tr>
+      <tr><td>Venison</td><td>30g</td><td>160</td><td>8g</td><td>₹950/kg</td></tr>
+    </table>
+
+    <!-- Category 5 -->
+    <h2>🐟 Seafood</h2>
+    <table>
+      <tr><th>Fish</th><th>Protein</th><th>Calories</th><th>Fat</th><th>Price</th></tr>
+      <tr><td>Rohu</td><td>20g</td><td>142</td><td>6g</td><td>₹200/kg</td></tr>
+      <tr><td>Hilsa</td><td>21g</td><td>209</td><td>12g</td><td>₹500/kg</td></tr>
+      <tr><td>Pomfret</td><td>18g</td><td>120</td><td>4.5g</td><td>₹700/kg</td></tr>
+      <tr><td>Surmai (Seer Fish)</td><td>20g</td><td>160</td><td>7g</td><td>₹800/kg</td></tr>
+      <tr><td>Indian Salmon (Rawas)</td><td>22g</td><td>200</td><td>12g</td><td>₹750/kg</td></tr>
+      <tr><td>Tuna</td><td>23g</td><td>180</td><td>8g</td><td>₹600/kg</td></tr>
+      <tr><td>Mackerel (Bangda)</td><td>21g</td><td>205</td><td>13g</td><td>₹300/kg</td></tr>
+      <tr><td>Sardine</td><td>25g</td><td>208</td><td>11g</td><td>₹250/kg</td></tr>
+      <tr><td>Catla</td><td>20g</td><td>150</td><td>5g</td><td>₹220/kg</td></tr>
+      <tr><td>Tilapia</td><td>22g</td><td>128</td><td>3g</td><td>₹200/kg</td></tr>
+      <tr><td>Bombil (Bombay Duck)</td><td>19g</td><td>140</td><td>5g</td><td>₹350/kg</td></tr>
+      <tr><td>Koi Fish</td><td>18g</td><td>130</td><td>4g</td><td>₹280/kg</td></tr>
+      <tr><td>Pabda</td><td>19g</td><td>135</td><td>5g</td><td>₹240/kg</td></tr>
+      <tr><td>Eel</td><td>23g</td><td>230</td><td>15g</td><td>₹900/kg</td></tr>
+      <tr><td>Shark Meat</td><td>27g</td><td>250</td><td>12g</td><td>₹1000/kg</td></tr>
+    </table>
+
+    <!-- Category 6 -->
+    <h2>🦐 Crustaceans</h2>
+    <table>
+      <tr><th>Seafood</th><th>Protein</th><th>Calories</th><th>Cholesterol</th><th>Price</th></tr>
+      <tr><td>Shrimp</td><td>24g</td><td>106</td><td>195mg</td><td>₹450/kg</td></tr>
+      <tr><td>Prawns</td><td>20g</td><td>100</td><td>150mg</td><td>₹400/kg</td></tr>
+      <tr><td>Lobster</td><td>19g</td><td>90</td><td>145mg</td><td>₹1200/kg</td></tr>
+      <tr><td>Crab</td><td>20g</td><td>97</td><td>53mg</td><td>₹800/kg</td></tr>
+      <tr><td>Crawfish</td><td>17g</td><td>82</td><td>115mg</td><td>₹750/kg</td></tr>
+      <tr><td>King Prawn</td><td>22g</td><td>105</td><td>170mg</td><td>₹1000/kg</td></tr>
+      <tr><td>Blue Crab</td><td>19g</td><td>87</td><td>55mg</td><td>₹850/kg</td></tr>
+      <tr><td>Snow Crab</td><td>20g</td><td>90</td><td>65mg</td><td>₹950/kg</td></tr>
+      <tr><td>Rock Lobster</td><td>21g</td><td>110</td><td>160mg</td><td>₹1500/kg</td></tr>
+      <tr><td>Tiger Prawns</td><td>21g</td><td>102</td><td>180mg</td><td>₹1200/kg</td></tr>
+      <tr><td>Mud Crab</td><td>18g</td><td>85</td><td>60mg</td><td>₹700/kg</td></tr>
+      <tr><td>River Prawn</td><td>20g</td><td>92</td><td>120mg</td><td>₹650/kg</td></tr>
+      <tr><td>Brown Shrimp</td><td>23g</td><td>108</td><td>195mg</td><td>₹900/kg</td></tr>
+      <tr><td>White Shrimp</td><td>24g</td><td>110</td><td>200mg</td><td>₹950/kg</td></tr>
+      <tr><td>Scampi</td><td>20g</td><td>95</td><td>160mg</td><td>₹1000/kg</td></tr>
+    </table>
+
+
+        <!-- Category 7 -->
+    <h2>🫘 Lentils & Pulses</h2>
+    <table>
+      <tr><th>Dal</th><th>Protein</th><th>Calories</th><th>Carbs</th><th>Price</th></tr>
+      <tr><td>Toor Dal</td><td>22g</td><td>343</td><td>62g</td><td>₹150/kg</td></tr>
+      <tr><td>Moong Dal</td><td>24g</td><td>347</td><td>59g</td><td>₹160/kg</td></tr>
+      <tr><td>Masoor Dal</td><td>23g</td><td>353</td><td>60g</td><td>₹140/kg</td></tr>
+      <tr><td>Urad Dal</td><td>25g</td><td>347</td><td>58g</td><td>₹170/kg</td></tr>
+      <tr><td>Chana Dal</td><td>21g</td><td>364</td><td>60g</td><td>₹120/kg</td></tr>
+      <tr><td>Horse Gram (Kulthi)</td><td>22g</td><td>321</td><td>57g</td><td>₹90/kg</td></tr>
+      <tr><td>Rajma</td><td>24g</td><td>333</td><td>60g</td><td>₹110/kg</td></tr>
+      <tr><td>Green Gram (Whole Moong)</td><td>24g</td><td>347</td><td>59g</td><td>₹150/kg</td></tr>
+      <tr><td>Bengal Gram (Kala Chana)</td><td>19g</td><td>364</td><td>61g</td><td>₹100/kg</td></tr>
+      <tr><td>Moth Beans (Matki)</td><td>23g</td><td>343</td><td>62g</td><td>₹90/kg</td></tr>
+      <tr><td>Field Beans (Val)</td><td>23g</td><td>341</td><td>58g</td><td>₹95/kg</td></tr>
+      <tr><td>Black-eyed Pea (Chawli)</td><td>24g</td><td>336</td><td>60g</td><td>₹85/kg</td></tr>
+      <tr><td>Split Peas</td><td>25g</td><td>341</td><td>61g</td><td>₹90/kg</td></tr>
+      <tr><td>Arhar Dal</td><td>21g</td><td>343</td><td>62g</td><td>₹130/kg</td></tr>
+      <tr><td>Sambar Dal Mix</td><td>22g</td><td>345</td><td>61g</td><td>₹140/kg</td></tr>
+    </table>
+
+    <!-- Category 8 -->
+    <h2>🥗 Chickpeas & Beans</h2>
+    <table>
+      <tr><th>Food</th><th>Protein</th><th>Calories</th><th>Carbs</th><th>Price</th></tr>
+      <tr><td>Kabuli Chana</td><td>20g</td><td>364</td><td>61g</td><td>₹120/kg</td></tr>
+      <tr><td>Black Chickpeas (Kala Chana)</td><td>19g</td><td>360</td><td>60g</td><td>₹100/kg</td></tr>
+      <tr><td>White Rajma</td><td>23g</td><td>330</td><td>60g</td><td>₹120/kg</td></tr>
+      <tr><td>Red Rajma</td><td>24g</td><td>333</td><td>59g</td><td>₹110/kg</td></tr>
+      <tr><td>Black Beans</td><td>23g</td><td>341</td><td>61g</td><td>₹140/kg</td></tr>
+      <tr><td>Pinto Beans</td><td>22g</td><td>345</td><td>63g</td><td>₹130/kg</td></tr>
+      <tr><td>Green Beans</td><td>2g</td><td>31</td><td>7g</td><td>₹60/kg</td></tr>
+      <tr><td>French Beans</td><td>2g</td><td>35</td><td>8g</td><td>₹70/kg</td></tr>
+      <tr><td>Cluster Beans (Gawar)</td><td>3g</td><td>43</td><td>9g</td><td>₹80/kg</td></tr>
+      <tr><td>Broad Beans (Sem)</td><td>8g</td><td>88</td><td>17g</td><td>₹70/kg</td></tr>
+      <tr><td>Black-eyed Beans</td><td>24g</td><td>336</td><td>60g</td><td>₹90/kg</td></tr>
+      <tr><td>Soybeans</td><td>35g</td><td>446</td><td>30g</td><td>₹120/kg</td></tr>
+      <tr><td>Lobia</td><td>24g</td><td>340</td><td>61g</td><td>₹95/kg</td></tr>
+      <tr><td>Butter Beans</td><td>21g</td><td>338</td><td>61g</td><td>₹110/kg</td></tr>
+      <tr><td>Haricot Beans</td><td>22g</td><td>340</td><td>60g</td><td>₹120/kg</td></tr>
+    </table>
+
+    <!-- Category 9 -->
+    <h2>🌾 Millets</h2>
+    <table>
+      <tr><th>Millet</th><th>Protein</th><th>Calories</th><th>Carbs</th><th>Price</th></tr>
+      <tr><td>Bajra (Pearl Millet)</td><td>11.6g</td><td>378</td><td>67g</td><td>₹60/kg</td></tr>
+      <tr><td>Ragi (Finger Millet)</td><td>7.3g</td><td>336</td><td>72g</td><td>₹70/kg</td></tr>
+      <tr><td>Jowar (Sorghum)</td><td>10g</td><td>329</td><td>72g</td><td>₹50/kg</td></tr>
+      <tr><td>Kodo Millet</td><td>8.3g</td><td>353</td><td>66g</td><td>₹80/kg</td></tr>
+      <tr><td>Little Millet</td><td>9g</td><td>329</td><td>67g</td><td>₹90/kg</td></tr>
+      <tr><td>Barnyard Millet</td><td>11g</td><td>342</td><td>65g</td><td>₹100/kg</td></tr>
+      <tr><td>Foxtail Millet</td><td>12g</td><td>351</td><td>62g</td><td>₹120/kg</td></tr>
+      <tr><td>Browntop Millet</td><td>11g</td><td>340</td><td>66g</td><td>₹130/kg</td></tr>
+      <tr><td>Proso Millet</td><td>12.5g</td><td>350</td><td>70g</td><td>₹110/kg</td></tr>
+      <tr><td>Sanwa Millet</td><td>11g</td><td>342</td><td>65g</td><td>₹100/kg</td></tr>
+      <tr><td>Finger Millet Malt</td><td>8g</td><td>320</td><td>70g</td><td>₹150/kg</td></tr>
+      <tr><td>Kutki Millet</td><td>9.5g</td><td>330</td><td>68g</td><td>₹100/kg</td></tr>
+      <tr><td>Yellow Foxtail Millet</td><td>11g</td><td>335</td><td>67g</td><td>₹130/kg</td></tr>
+      <tr><td>Hybrid Millet Mix</td><td>10g</td><td>340</td><td>66g</td><td>₹120/kg</td></tr>
+      <tr><td>Sprouted Millet Mix</td><td>12g</td><td>345</td><td>65g</td><td>₹140/kg</td></tr>
+    </table>
+
+    <!-- Category 10 -->
+    <h2>🌾 Whole Grains</h2>
+    <table>
+      <tr><th>Grain</th><th>Protein</th><th>Calories</th><th>Carbs</th><th>Price</th></tr>
+      <tr><td>Wheat (Whole)</td><td>13g</td><td>340</td><td>72g</td><td>₹40/kg</td></tr>
+      <tr><td>Brown Rice</td><td>8g</td><td>370</td><td>77g</td><td>₹70/kg</td></tr>
+      <tr><td>White Rice</td><td>7g</td><td>365</td><td>80g</td><td>₹60/kg</td></tr>
+      <tr><td>Oats</td><td>16g</td><td>389</td><td>66g</td><td>₹120/kg</td></tr>
+      <tr><td>Barley</td><td>12g</td><td>354</td><td>73g</td><td>₹80/kg</td></tr>
+      <tr><td>Corn</td><td>9g</td><td>365</td><td>74g</td><td>₹40/kg</td></tr>
+      <tr><td>Red Rice</td><td>7.5g</td><td>365</td><td>78g</td><td>₹90/kg</td></tr>
+      <tr><td>Basmati Rice</td><td>8g</td><td>360</td><td>77g</td><td>₹100/kg</td></tr>
+      <tr><td>Flattened Rice (Poha)</td><td>6.5g</td><td>350</td><td>76g</td><td>₹60/kg</td></tr>
+      <tr><td>Puffed Rice (Murmura)</td><td>6g</td><td>320</td><td>74g</td><td>₹50/kg</td></tr>
+      <tr><td>Dalia (Broken Wheat)</td><td>12g</td><td>342</td><td>72g</td><td>₹70/kg</td></tr>
+      <tr><td>Buckwheat (Kuttu)</td><td>13g</td><td>343</td><td>71g</td><td>₹90/kg</td></tr>
+      <tr><td>Quinoa</td><td>14g</td><td>368</td><td>64g</td><td>₹400/kg</td></tr>
+      <tr><td>Amaranth (Rajgira)</td><td>14g</td><td>371</td><td>65g</td><td>₹150/kg</td></tr>
+      <tr><td>Millet-Rice Mix</td><td>12g</td><td>345</td><td>70g</td><td>₹120/kg</td></tr>
+    </table>
+
+
+        <!-- Category 11 -->
+    <h2>🌱 Seeds</h2>
+    <table>
+      <tr><th>Seed</th><th>Protein</th><th>Calories</th><th>Fat</th><th>Price</th></tr>
+      <tr><td>Flax Seeds</td><td>18g</td><td>534</td><td>42g</td><td>₹200/kg</td></tr>
+      <tr><td>Chia Seeds</td><td>17g</td><td>486</td><td>31g</td><td>₹250/kg</td></tr>
+      <tr><td>Pumpkin Seeds</td><td>19g</td><td>559</td><td>49g</td><td>₹300/kg</td></tr>
+      <tr><td>Sunflower Seeds</td><td>21g</td><td>584</td><td>51g</td><td>₹280/kg</td></tr>
+      <tr><td>Sesame Seeds (Til)</td><td>18g</td><td>573</td><td>50g</td><td>₹180/kg</td></tr>
+      <tr><td>Watermelon Seeds</td><td>28g</td><td>557</td><td>47g</td><td>₹350/kg</td></tr>
+      <tr><td>Muskmelon Seeds</td><td>21g</td><td>555</td><td>48g</td><td>₹320/kg</td></tr>
+      <tr><td>Poppy Seeds (Khus Khus)</td><td>18g</td><td>525</td><td>42g</td><td>₹800/kg</td></tr>
+      <tr><td>Hemp Seeds</td><td>25g</td><td>553</td><td>49g</td><td>₹600/kg</td></tr>
+      <tr><td>Basil Seeds (Sabja)</td><td>20g</td><td>480</td><td>42g</td><td>₹350/kg</td></tr>
+      <tr><td>Cantaloupe Seeds</td><td>20g</td><td>540</td><td>45g</td><td>₹300/kg</td></tr>
+      <tr><td>Coriander Seeds</td><td>12g</td><td>298</td><td>17g</td><td>₹200/kg</td></tr>
+      <tr><td>Fenugreek Seeds</td><td>23g</td><td>323</td><td>6g</td><td>₹150/kg</td></tr>
+      <tr><td>Carom Seeds (Ajwain)</td><td>16g</td><td>305</td><td>25g</td><td>₹180/kg</td></tr>
+      <tr><td>Mustard Seeds</td><td>26g</td><td>508</td><td>36g</td><td>₹220/kg</td></tr>
+    </table>
+
+    <!-- Category 12 -->
+    <h2>🥜 Nuts</h2>
+    <table>
+      <tr><th>Nut</th><th>Protein</th><th>Calories</th><th>Fat</th><th>Price</th></tr>
+      <tr><td>Almonds</td><td>21g</td><td>576</td><td>49g</td><td>₹900/kg</td></tr>
+      <tr><td>Cashews</td><td>18g</td><td>553</td><td>44g</td><td>₹800/kg</td></tr>
+      <tr><td>Walnuts</td><td>15g</td><td>654</td><td>65g</td><td>₹1200/kg</td></tr>
+      <tr><td>Pistachios</td><td>20g</td><td>562</td><td>45g</td><td>₹1000/kg</td></tr>
+      <tr><td>Hazelnuts</td><td>15g</td><td>628</td><td>61g</td><td>₹1400/kg</td></tr>
+      <tr><td>Brazil Nuts</td><td>14g</td><td>656</td><td>66g</td><td>₹1600/kg</td></tr>
+      <tr><td>Macadamia Nuts</td><td>8g</td><td>718</td><td>76g</td><td>₹2000/kg</td></tr>
+      <tr><td>Pine Nuts (Chilgoza)</td><td>14g</td><td>673</td><td>68g</td><td>₹1800/kg</td></tr>
+      <tr><td>Pili Nuts</td><td>11g</td><td>719</td><td>75g</td><td>₹2200/kg</td></tr>
+      <tr><td>Betel Nuts (Supari)</td><td>13g</td><td>470</td><td>15g</td><td>₹500/kg</td></tr>
+      <tr><td>Groundnuts</td><td>25g</td><td>567</td><td>49g</td><td>₹150/kg</td></tr>
+      <tr><td>Kaju Tukda</td><td>18g</td><td>553</td><td>44g</td><td>₹700/kg</td></tr>
+      <tr><td>Fox Nuts (Makhana)</td><td>14g</td><td>347</td><td>0.1g</td><td>₹500/kg</td></tr>
+      <tr><td>Chestnuts</td><td>3g</td><td>213</td><td>2g</td><td>₹600/kg</td></tr>
+      <tr><td>Kola Nuts</td><td>10g</td><td>400</td><td>8g</td><td>₹900/kg</td></tr>
+    </table>
+
+    <!-- Category 13 -->
+    <h2>🥦 Vegetables</h2>
+    <table>
+      <tr><th>Vegetable</th><th>Protein</th><th>Calories</th><th>Key Vitamins</th><th>Price</th></tr>
+      <tr><td>Spinach</td><td>2.9g</td><td>23</td><td>A, C, K</td><td>₹40/kg</td></tr>
+      <tr><td>Broccoli</td><td>2.8g</td><td>34</td><td>C, K</td><td>₹120/kg</td></tr>
+      <tr><td>Carrot</td><td>1g</td><td>41</td><td>A, K</td><td>₹40/kg</td></tr>
+      <tr><td>Tomato</td><td>0.9g</td><td>18</td><td>C</td><td>₹30/kg</td></tr>
+      <tr><td>Onion</td><td>1.1g</td><td>40</td><td>C</td><td>₹35/kg</td></tr>
+      <tr><td>Potato</td><td>2g</td><td>77</td><td>C, B6</td><td>₹30/kg</td></tr>
+      <tr><td>Cauliflower</td><td>2g</td><td>25</td><td>C, K</td><td>₹40/kg</td></tr>
+      <tr><td>Cabbage</td><td>1.3g</td><td>25</td><td>C, K</td><td>₹30/kg</td></tr>
+      <tr><td>Bitter Gourd</td><td>1g</td><td>17</td><td>C</td><td>₹50/kg</td></tr>
+      <tr><td>Ladyfinger (Bhindi)</td><td>2g</td><td>33</td><td>C, K</td><td>₹50/kg</td></tr>
+      <tr><td>Brinjal</td><td>1g</td><td>25</td><td>C</td><td>₹40/kg</td></tr>
+      <tr><td>Drumstick (Moringa)</td><td>2.1g</td><td>37</td><td>C</td><td>₹80/kg</td></tr>
+      <tr><td>Radish</td><td>0.7g</td><td>16</td><td>C</td><td>₹30/kg</td></tr>
+      <tr><td>Beetroot</td><td>1.6g</td><td>43</td><td>C, B9</td><td>₹40/kg</td></tr>
+      <tr><td>Pumpkin</td><td>1g</td><td>26</td><td>A</td><td>₹35/kg</td></tr>
+    </table>
+
+    <!-- Category 14 -->
+    <h2>🍎 Fruits</h2>
+    <table>
+      <tr><th>Fruit</th><th>Protein</th><th>Calories</th><th>Key Vitamins</th><th>Price</th></tr>
+      <tr><td>Apple</td><td>0.3g</td><td>52</td><td>C</td><td>₹150/kg</td></tr>
+      <tr><td>Banana</td><td>1.3g</td><td>89</td><td>B6, C</td><td>₹60/dozen</td></tr>
+      <tr><td>Papaya</td><td>0.5g</td><td>43</td><td>C, A</td><td>₹40/kg</td></tr>
+      <tr><td>Mango</td><td>0.8g</td><td>60</td><td>A, C</td><td>₹100/kg</td></tr>
+      <tr><td>Guava</td><td>2.6g</td><td>68</td><td>C</td><td>₹80/kg</td></tr>
+      <tr><td>Pineapple</td><td>0.9g</td><td>50</td><td>C</td><td>₹60/kg</td></tr>
+      <tr><td>Orange</td><td>0.9g</td><td>47</td><td>C</td><td>₹80/kg</td></tr>
+      <tr><td>Watermelon</td><td>0.6g</td><td>30</td><td>A, C</td><td>₹25/kg</td></tr>
+      <tr><td>Muskmelon</td><td>0.9g</td><td>34</td><td>A, C</td><td>₹40/kg</td></tr>
+      <tr><td>Custard Apple</td><td>2g</td><td>94</td><td>C</td><td>₹120/kg</td></tr>
+      <tr><td>Litchi</td><td>0.8g</td><td>66</td><td>C</td><td>₹200/kg</td></tr>
+      <tr><td>Pomegranate</td><td>1.7g</td><td>83</td><td>C, K</td><td>₹150/kg</td></tr>
+      <tr><td>Chikoo (Sapota)</td><td>0.4g</td><td>83</td><td>A, C</td><td>₹60/kg</td></tr>
+      <tr><td>Jamun</td><td>0.7g</td><td>60</td><td>C</td><td>₹120/kg</td></tr>
+      <tr><td>Strawberry</td><td>0.8g</td><td>32</td><td>C</td><td>₹200/kg</td></tr>
+    </table>
+
+    <!-- Category 15 -->
+    <h2>🥥 Oils & Fats</h2>
+    <table>
+      <tr><th>Oil/Fat</th><th>Calories (per tbsp)</th><th>Fat</th><th>Key Nutrients</th><th>Price</th></tr>
+      <tr><td>Mustard Oil</td><td>120</td><td>14g</td><td>Omega-3, Vit E</td><td>₹180/L</td></tr>
+      <tr><td>Groundnut Oil</td><td>119</td><td>13.5g</td><td>Vit E</td><td>₹200/L</td></tr>
+      <tr><td>Coconut Oil</td><td>117</td><td>13.6g</td><td>Lauric Acid</td><td>₹220/L</td></tr>
+      <tr><td>Ghee</td><td>112</td><td>12.7g</td><td>Vit A, D, K</td><td>₹550/kg</td></tr>
+      <tr><td>Butter</td><td>102</td><td>11.5g</td><td>Vit A</td><td>₹500/kg</td></tr>
+      <tr><td>Sunflower Oil</td><td>120</td><td>14g</td><td>Vit E</td><td>₹180/L</td></tr>
+      <tr><td>Soybean Oil</td><td>119</td><td>13.6g</td><td>Omega-6</td><td>₹160/L</td></tr>
+      <tr><td>Olive Oil</td><td>119</td><td>13.5g</td><td>Vit E, MUFA</td><td>₹700/L</td></tr>
+      <tr><td>Rice Bran Oil</td><td>120</td><td>14g</td><td>Oryzanol</td><td>₹180/L</td></tr>
+      <tr><td>Safflower Oil</td><td>120</td><td>14g</td><td>Linoleic Acid</td><td>₹190/L</td></tr>
+      <tr><td>Cottonseed Oil</td><td>120</td><td>14g</td><td>Vit E</td><td>₹150/L</td></tr>
+      <tr><td>Sesame Oil</td><td>119</td><td>13.6g</td><td>Sesamol</td><td>₹200/L</td></tr>
+      <tr><td>Canola Oil</td><td>120</td><td>14g</td><td>Omega-3, Vit E</td><td>₹400/L</td></tr>
+      <tr><td>Avocado Oil</td><td>124</td><td>14g</td><td>MUFA, Vit E</td><td>₹1000/L</td></tr>
+      <tr><td>Palm Oil</td><td>120</td><td>14g</td><td>Vit E</td><td>₹140/L</td></tr>
+    </table>
+  </div>
+
+  <footer>
+    &copy; 2025 Wellness 360 • Empowering Health & Fitness
+  </footer>
+
+  <script>
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+      let filter = this.value.toLowerCase();
+      let tables = document.querySelectorAll("table");
+
+      tables.forEach(table => {
+        let rows = table.getElementsByTagName("tr");
+        for (let i = 1; i < rows.length; i++) { // skip table header
+          let rowText = rows[i].innerText.toLowerCase();
+          if (rowText.includes(filter)) {
+            rows[i].style.display = "";
+          } else {
+            rows[i].style.display = "none";
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>
